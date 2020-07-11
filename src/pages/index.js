@@ -8,35 +8,31 @@ import { rhythm } from "../utils/typography"
 
 const BlogIndex = ({ data, location }) => {
   const siteTitle = data.site.siteMetadata.title
-  const posts = data.allMarkdownRemark.edges
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO title="All posts" />
       <Bio />
-      {posts.map(({ node }) => {
-        const title = node.frontmatter.title || node.fields.slug
+      {data.allContentfulBlogPost.edges.map(({ node }) => {
         return (
-          <article key={node.fields.slug}>
+          <article key={node.title}>
             <header>
               <h3
                 style={{
                   marginBottom: rhythm(1 / 4),
                 }}
               >
-                <Link style={{ boxShadow: `none` }} to={node.fields.slug}>
-                  {title}
+                <Link style={{ boxShadow: `none` }} to={"/blog/" + node.slug}>
+                  {node.title}
                 </Link>
               </h3>
-              <small>{node.frontmatter.date}</small>
+              <p>tags:</p>
+              <ul>
+                {node.tags.map(({ name }) => (<li key={name}>{name}</li>))}
+              </ul>
+              <img src={"https:" + node.hero.file.url} />
+              <small>created at {node.createdAt}; updated at {node.updatedAt}</small>
             </header>
-            <section>
-              <p
-                dangerouslySetInnerHTML={{
-                  __html: node.frontmatter.description || node.excerpt,
-                }}
-              />
-            </section>
           </article>
         )
       })}
@@ -53,18 +49,21 @@ export const pageQuery = graphql`
         title
       }
     }
-    allMarkdownRemark(sort: { fields: [frontmatter___date], order: DESC }) {
+    allContentfulBlogPost {
       edges {
         node {
-          excerpt
-          fields {
-            slug
+          title
+          slug
+          hero {
+            file {
+              url
+            }
           }
-          frontmatter {
-            date(formatString: "MMMM DD, YYYY")
-            title
-            description
+          tags {
+            name
           }
+          createdAt(formatString: "Do MMMM YYYY")
+          updatedAt(formatString: "Do MMMM YYYY")
         }
       }
     }

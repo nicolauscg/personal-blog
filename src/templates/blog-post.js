@@ -1,79 +1,36 @@
 import React from "react"
 import { Link, graphql } from "gatsby"
 
-import Bio from "../components/bio"
 import Layout from "../components/layout"
 import SEO from "../components/seo"
 import { rhythm, scale } from "../utils/typography"
 
-const BlogPostTemplate = ({ data, pageContext, location }) => {
-  const post = data.markdownRemark
+import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
+
+const BlogPostTemplate = ({ data, location }) => {
+  const post = data.contentfulBlogPost
   const siteTitle = data.site.siteMetadata.title
-  const { previous, next } = pageContext
 
   return (
     <Layout location={location} title={siteTitle}>
       <SEO
-        title={post.frontmatter.title}
-        description={post.frontmatter.description || post.excerpt}
+        title={post.title}
       />
-      <article>
+      <article key={post.title}>
         <header>
-          <h1
+          <h3
             style={{
-              marginTop: rhythm(1),
-              marginBottom: 0,
+              marginBottom: rhythm(1 / 4),
             }}
           >
-            {post.frontmatter.title}
-          </h1>
-          <p
-            style={{
-              ...scale(-1 / 5),
-              display: `block`,
-              marginBottom: rhythm(1),
-            }}
-          >
-            {post.frontmatter.date}
-          </p>
+            {post.title}
+          </h3>
+          <small>create {post.createdAt}; update {post.updatedAt}</small>
         </header>
-        <section dangerouslySetInnerHTML={{ __html: post.html }} />
-        <hr
-          style={{
-            marginBottom: rhythm(1),
-          }}
-        />
-        <footer>
-          <Bio />
-        </footer>
+        <section>
+          {documentToReactComponents(post.content.json, {})}
+        </section>
       </article>
-
-      <nav>
-        <ul
-          style={{
-            display: `flex`,
-            flexWrap: `wrap`,
-            justifyContent: `space-between`,
-            listStyle: `none`,
-            padding: 0,
-          }}
-        >
-          <li>
-            {previous && (
-              <Link to={previous.fields.slug} rel="prev">
-                ← {previous.frontmatter.title}
-              </Link>
-            )}
-          </li>
-          <li>
-            {next && (
-              <Link to={next.fields.slug} rel="next">
-                {next.frontmatter.title} →
-              </Link>
-            )}
-          </li>
-        </ul>
-      </nav>
     </Layout>
   )
 }
@@ -87,14 +44,21 @@ export const pageQuery = graphql`
         title
       }
     }
-    markdownRemark(fields: { slug: { eq: $slug } }) {
-      id
-      excerpt(pruneLength: 160)
-      html
-      frontmatter {
-        title
-        date(formatString: "MMMM DD, YYYY")
-        description
+    contentfulBlogPost(slug: { eq: $slug }) {
+      title
+      slug
+      hero {
+        file {
+          url
+        }
+      }
+      tags {
+        name
+      }
+      createdAt(formatString: "Do MMMM YYYY")
+      updatedAt(formatString: "Do MMMM YYYY")
+      content {
+        json
       }
     }
   }

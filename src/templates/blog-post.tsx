@@ -1,18 +1,17 @@
 import React from "react"
-import { Link, graphql } from "gatsby"
+import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
 import SEO from "../components/seo"
-import { rhythm, scale } from "../utils/typography"
+import { rhythm } from "../utils/typography"
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.contentfulBlogPost
-  const siteTitle = data.site.siteMetadata.title
 
   return (
-    <Layout location={location} title={siteTitle}>
+    <Layout>
       <SEO title={post.title} />
       <article key={post.title}>
         <header>

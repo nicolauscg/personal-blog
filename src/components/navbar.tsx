@@ -1,5 +1,5 @@
 import React from "react"
-import { Link } from "gatsby"
+import { Link, GatsbyLinkProps } from "gatsby"
 import PropTypes from "prop-types"
 
 import {
@@ -51,7 +51,7 @@ export default function NavBar(props) {
                     className={classes.transparentBackground}
                   >
                     <Box px={2} py={1}>
-                      <Typography variant="p" color="inherit">
+                      <Typography variant="body1" color="inherit">
                         {pageName}
                       </Typography>
                     </Box>
@@ -67,7 +67,7 @@ export default function NavBar(props) {
   )
 }
 
-const UnstyledLink = props => {
+const UnstyledLink = (props) => {
   const classes = useUnstyledLinkStyle(props)
   const className = props.className || ""
   return <Link {...props} className={`${classes.root} ${className}`} />

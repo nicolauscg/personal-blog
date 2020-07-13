@@ -1,6 +1,5 @@
-const Promise = require('bluebird')
-const path = require('path')
-
+const Promise = require("bluebird")
+const path = require("path")
 
 exports.createPages = ({ graphql, actions }) => {
   const { createPage } = actions
@@ -19,7 +18,7 @@ exports.createPages = ({ graphql, actions }) => {
               }
             }
           }
-          `
+        `
       ).then(result => {
         if (result.errors) {
           console.log(result.errors)
@@ -30,9 +29,9 @@ exports.createPages = ({ graphql, actions }) => {
         posts.forEach((post, _) => {
           createPage({
             path: `/blog/${post.node.slug}/`,
-            component: path.resolve('./src/templates/blog-post.js'),
+            component: path.resolve("./src/templates/blog-post.tsx"),
             context: {
-              slug: post.node.slug
+              slug: post.node.slug,
             },
           })
         })

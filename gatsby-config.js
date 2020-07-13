@@ -1,5 +1,5 @@
-require('dotenv').config({
-  path: `.env`,
+require("dotenv").config({
+  path: ".env",
 })
 
 module.exports = {
@@ -91,5 +91,5 @@ module.exports = {
         downloadLocal: true,
       },
     },
-  ]
+  ],
 }

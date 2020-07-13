@@ -13,9 +13,7 @@ const BlogPostTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location} title={siteTitle}>
-      <SEO
-        title={post.title}
-      />
+      <SEO title={post.title} />
       <article key={post.title}>
         <header>
           <h3
@@ -25,11 +23,11 @@ const BlogPostTemplate = ({ data, location }) => {
           >
             {post.title}
           </h3>
-          <small>create {post.createdAt}; update {post.updatedAt}</small>
+          <small>
+            create {post.createdAt}; update {post.updatedAt}
+          </small>
         </header>
-        <section>
-          {documentToReactComponents(post.content.json, {})}
-        </section>
+        <section>{documentToReactComponents(post.content.json, {})}</section>
       </article>
     </Layout>
   )

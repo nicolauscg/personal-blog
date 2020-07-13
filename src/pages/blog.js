@@ -24,10 +24,14 @@ const BlogIndex = ({ data }) => {
               </h3>
               <p>tags:</p>
               <ul>
-                {node.tags.map(({ name }) => (<li key={name}>{name}</li>))}
+                {node.tags.map(({ name }) => (
+                  <li key={name}>{name}</li>
+                ))}
               </ul>
               <img src={"https:" + node.hero.file.url} />
-              <small>created at {node.createdAt}; updated at {node.updatedAt}</small>
+              <small>
+                created at {node.createdAt}; updated at {node.updatedAt}
+              </small>
             </header>
           </article>
         )

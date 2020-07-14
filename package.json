@@ -46,8 +46,12 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-standard": "^4.0.1",
+    "gatsby-plugin-postcss": "^2.3.11",
     "gatsby-source-contentful": "^2.3.26",
-    "prettier": "^2.0.5"
+    "postcss-partial-process": "^2.0.0",
+    "postcss-prepend-selector": "^0.3.1",
+    "prettier": "^2.0.5",
+    "tailwindcss": "^1.4.6"
   },
   "homepage": "https://github.com/gatsbyjs/gatsby-starter-blog#readme",
   "keywords": [

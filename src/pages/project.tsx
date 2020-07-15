@@ -1,9 +1,9 @@
 import React from "react"
 import Layout from "../components/layout"
 
-const ProjectPage = () => {
+const ProjectPage = ({ location }) => {
   return (
-    <Layout>
+    <Layout location={location}>
       <h1>project page</h1>
     </Layout>
   )

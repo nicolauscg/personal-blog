@@ -1,12 +1,8 @@
 import React from "react"
-import { Link, GatsbyLinkProps } from "gatsby"
 import PropTypes from "prop-types"
+import UnstyledLink from "./unstyled-link"
 
-import {
-  createMuiTheme,
-  MuiThemeProvider,
-  makeStyles,
-} from "@material-ui/core/styles"
+import { makeStyles } from "@material-ui/core/styles"
 import green from "@material-ui/core/colors/green"
 import grey from "@material-ui/core/colors/grey"
 import AppBar from "@material-ui/core/AppBar"
@@ -21,9 +17,10 @@ import Box from "@material-ui/core/Box"
 
 export default function NavBar(props) {
   const classes = useNavBarStyle(props)
+  const isActive = pageName => props.location.pathname.startsWith(`/${pageName}`)
 
   return (
-    <MuiThemeProvider theme={theme}>
+    <>
       <CssBaseline />
       <HideOnScroll {...props}>
         <AppBar>
@@ -42,8 +39,7 @@ export default function NavBar(props) {
                 <UnstyledLink
                   key={pageName}
                   to={`/${pageName}`}
-                  className={classes.menuLink}
-                  activeClassName={classes.activeMenuLink}
+                  className={`${classes.menuLink} ${isActive(pageName) && classes.activeMenuLink}`}
                 >
                   <Button
                     color="inherit"
@@ -63,14 +59,8 @@ export default function NavBar(props) {
         </AppBar>
       </HideOnScroll>
       <Toolbar />
-    </MuiThemeProvider>
+    </>
   )
-}
-
-const UnstyledLink = (props) => {
-  const classes = useUnstyledLinkStyle(props)
-  const className = props.className || ""
-  return <Link {...props} className={`${classes.root} ${className}`} />
 }
 
 function HideOnScroll(props) {
@@ -83,17 +73,6 @@ function HideOnScroll(props) {
     </Slide>
   )
 }
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: grey[50],
-    },
-    secondary: {
-      main: green[500],
-    },
-  },
-})
 
 const useNavBarStyle = makeStyles({
   menuLink: {
@@ -108,15 +87,6 @@ const useNavBarStyle = makeStyles({
   },
   transparentBackground: {
     backgroundColor: "transparent !important",
-  },
-})
-
-const useUnstyledLinkStyle = makeStyles({
-  root: {
-    color: "inherit",
-    textDecoration: "inherit",
-    boxShadow: "initial",
-    fontStyle: "initial",
   },
 })
 

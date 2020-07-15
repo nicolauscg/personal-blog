@@ -7,11 +7,11 @@ import { rhythm } from "../utils/typography"
 
 import { documentToReactComponents } from "@contentful/rich-text-react-renderer"
 
-const BlogPostTemplate = ({ data }) => {
+const BlogPostTemplate = ({ data, location }) => {
   const post = data.contentfulBlogPost
 
   return (
-    <Layout>
+    <Layout location={location}>
       <SEO title={post.title} />
       <article key={post.title}>
         <header>

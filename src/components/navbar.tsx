@@ -1,10 +1,9 @@
 import React from "react"
 import PropTypes from "prop-types"
 import UnstyledLink from "./unstyled-link"
+import { mainColor, secondaryColor } from "../styles/color"
 
 import { makeStyles } from "@material-ui/core/styles"
-import green from "@material-ui/core/colors/green"
-import grey from "@material-ui/core/colors/grey"
 import AppBar from "@material-ui/core/AppBar"
 import Toolbar from "@material-ui/core/Toolbar"
 import Typography from "@material-ui/core/Typography"
@@ -76,14 +75,14 @@ function HideOnScroll(props) {
 
 const useNavBarStyle = makeStyles({
   menuLink: {
-    color: grey[900],
+    color: secondaryColor[900],
     "&:hover": {
-      color: green[500],
+      color: mainColor[500],
     },
   },
   activeMenuLink: {
-    color: `${green[500]} !important`,
-    borderBottom: `3px solid ${green[500]}`,
+    color: `${mainColor[500]} !important`,
+    borderBottom: `3px solid ${mainColor[500]}`,
   },
   transparentBackground: {
     backgroundColor: "transparent !important",

@@ -16,7 +16,7 @@ export default function BlogPostCard({ heroImageUrl, title, createDate, updateDa
         </UnstyledLink>
       </Box>
       <Box flexGrow={1}>
-        <Typography variant="h4" className="normal-case" color="primary">
+        <Typography variant="h4" className="normal-case" color="textSecondary">
           <UnstyledLink to={`/blog/${slug}`}>
             <Box width="100%">
               {title}

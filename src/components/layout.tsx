@@ -1,12 +1,11 @@
 import React from "react"
 import NavBar from "../components/navbar"
+import { baseThemePalette } from "../styles/color"
 
 import {
   createMuiTheme,
   MuiThemeProvider
 } from "@material-ui/core/styles"
-import green from "@material-ui/core/colors/green"
-import grey from "@material-ui/core/colors/grey"
 import Box from "@material-ui/core/Box"
 import Container from "@material-ui/core/Container"
 
@@ -26,19 +25,6 @@ const Layout = ({ children, location }) => {
   )
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: grey[50],
-    },
-    secondary: {
-      main: green[500],
-    },
-    text: {
-      primary: grey[900],
-      secondary: grey[600]
-    }
-  },
-})
+const theme = createMuiTheme(baseThemePalette)
 
 export default Layout

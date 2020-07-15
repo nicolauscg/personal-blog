@@ -3,16 +3,14 @@ import { graphql } from "gatsby"
 import Layout from "../components/layout"
 import Sidebar from "../components/sidebar"
 import BlogPostCard from "../components/blog-post-card"
+import { baseThemePalette } from "../styles/color"
 
 import {
   createMuiTheme,
   MuiThemeProvider
 } from "@material-ui/core/styles"
-import green from "@material-ui/core/colors/green"
-import grey from "@material-ui/core/colors/grey"
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import { ThemeProvider } from "@material-ui/core"
 
 const BlogIndex = ({ data, location }) => {
   const { pathname } = location;
@@ -48,20 +46,7 @@ const BlogIndex = ({ data, location }) => {
   )
 }
 
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: green[900],
-    },
-    secondary: {
-      main: green[500],
-    },
-    text: {
-      primary: grey[900],
-      secondary: grey[600]
-    }
-  },
-})
+const theme = createMuiTheme(baseThemePalette)
 
 export default BlogIndex
 

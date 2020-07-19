@@ -1,6 +1,7 @@
 import React from "react"
 import NavBar from "../components/navbar"
 import { baseThemePalette } from "../styles/color"
+import Footer from "../components/footer"
 
 import {
   createMuiTheme,
@@ -14,12 +15,15 @@ const Layout = ({ children, location }) => {
     // prepend tailwind css id for increased specificity
     <div id="tw">
       <MuiThemeProvider theme={theme}>
-        <NavBar location={location} />
-        <Container>
-          <Box mt={2}>
-            {children}
-          </Box>
-        </Container>
+        <Box display="flex" flexDirection="column" className="min-h-screen">
+          <NavBar location={location} />
+          <Container className="flex-grow">
+            <Box mt={2}>
+              {children}
+            </Box>
+          </Container>
+          <Footer />
+        </Box>
       </MuiThemeProvider>
     </div>
   )

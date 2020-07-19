@@ -27,14 +27,15 @@ export default function NavBar(props) {
             <Toolbar>
               <Box mr={5}>
                 <Typography variant="h5" color="secondary">
-                  <UnstyledLink to={`/`}>
+                  <UnstyledLink to={`/blog`}>
                     <Box fontWeight="fontWeightBold" px={2} py={1}>
                       nicolauscg
                     </Box>
                   </UnstyledLink>
                 </Typography>
               </Box>
-              {["blog", "project"].map(pageName => (
+              {/* {["blog", "project"].map(pageName => ( */}
+              {[].map(pageName => (
                 <UnstyledLink
                   key={pageName}
                   to={`/${pageName}`}

@@ -20,8 +20,14 @@ const BlogIndex = ({ data, location }) => {
     <Layout location={location}>
       <Grid container spacing={3}>
         <Grid container xs={4} alignItems="center" direction="column">
-          <Box width="15rem" maxWidth="100%" mt={6}>
-            <Sidebar dataEdges={data.allContentfulBlogPostTag.edges} activeTag={activeTag} />
+          <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
+            <Sidebar
+              heading="tags"
+              data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
+              tagNameDisplayFunc={elem => elem}
+              linkToFunc={tagName => tagName === "all" ? "/blog" : `/blog/tag/${tagName}`}
+              isActiveFunc={tagName => activeTag === tagName}
+            />
           </Box>
         </Grid>
         <Grid container xs={8}>

@@ -3,3 +3,7 @@
 /* postcss-partial-process start */
 @tailwind utilities;
 /* postcss-partial-process end */
+
+.custom-display-inherit {
+  display: inherit
+}

@@ -7,6 +7,11 @@ import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Button from '@material-ui/core/Button';
+import InputLabel from '@material-ui/core/InputLabel';
+import MenuItem from '@material-ui/core/MenuItem';
+import FormHelperText from '@material-ui/core/FormHelperText';
+import FormControl from '@material-ui/core/FormControl';
+import Select from '@material-ui/core/Select';
 
 const SideBarItem = ({ isActive, displayName, handleClick }) => {
   const classes = useSideBarStyle()
@@ -40,6 +45,39 @@ export default function SideBar({ heading, data, tagNameDisplayFunc, linkToFunc,
   )
 }
 
+export function SelectBar({ heading, data, tagNameDisplayFunc, linkToFunc, isActiveFunc }) {
+  const classes = useSideBarStyle()
+
+  return (
+    <FormControl fullWidth={true}>
+      <InputLabel classes={{focused: classes.inputLabelOnFocused}}>{heading}</InputLabel>
+      <Select 
+        MenuProps={{
+          getContentAnchorEl: null,
+          anchorOrigin: {
+            vertical: "bottom",
+            horizontal: "left",
+          },
+          transformOrigin: {
+            vertical: "top",
+            horizontal: "left"
+          },
+        }}
+        value={linkToFunc(data.find(elem => isActiveFunc(elem)))}
+      >
+        {data.map(elem =>
+          <MenuItem
+            value={linkToFunc(elem)}
+            onClick={() => navigate(linkToFunc(elem))}
+          >
+            {tagNameDisplayFunc(elem)}
+          </MenuItem>  
+        )}
+      </Select>
+    </FormControl>
+  )
+}
+
 const useSideBarStyle = makeStyles({
   active: {
     "& $tagButton": {
@@ -54,6 +92,9 @@ const useSideBarStyle = makeStyles({
       backgroundColor: mainColor[50],
       borderRadius: "15px"
     }
+  },
+  inputLabelOnFocused: {
+    color: "initial"
   }
 })
 

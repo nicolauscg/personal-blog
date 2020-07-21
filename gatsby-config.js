@@ -9,12 +9,14 @@ module.exports = {
       name: `Nicolaus Christian Gozali`,
       summary: `computer science student in University of Queensland`,
     },
-    description: `personal blog`,
+    description: `nicolauscg's personal portfolio and blog about tech`,
     siteUrl: `https://www.nicolauscg.com/`,
     social: {
-      twitter: `nicolauscg`,
+      email: `nicolauscg@gmail.com`,
       linkedin: `https://www.linkedin.com/in/nicolauscg`,
       github: `https://github.com/nicolauscg`,
+      gitlab: `https://gitlab.com/nicolauscg`,
+      twitter: `nicolauscg`,
     },
   },
   plugins: [
@@ -53,13 +55,11 @@ module.exports = {
     {
       resolve: `gatsby-plugin-manifest`,
       options: {
-        name: `Gatsby Starter Blog`,
-        short_name: `GatsbyJS`,
+        name: `nicolauscg`,
+        short_name: `nicolauscg`,
         start_url: `/`,
-        background_color: `#ffffff`,
-        theme_color: `#663399`,
         display: `minimal-ui`,
-        icon: `content/assets/gatsby-icon.png`,
+        icon: `static/android-chrome-192x192.png`,
       },
     },
     `gatsby-plugin-react-helmet`,

@@ -2,14 +2,16 @@ import React, { useState } from "react"
 import { graphql } from "gatsby"
 
 import Layout from "../components/layout"
+import SEO from "../components/seo"
 import RichTextRenderer from "../components/rich-text-renderer"
 import BlogPostSubtitle from "../components/blog-post-subtitle"
 import { ScrollSpySideBar } from "../components/sidebar"
+import Hero from "../components/hero"
 
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import Hero from "../components/hero"
-import { Typography } from "@material-ui/core"
+import Hidden from '@material-ui/core/Hidden';
+import Typography from "@material-ui/core/Typography"
 
 const BlogPostTemplate = ({ data, location }) => {
   const post = data.contentfulBlogPost
@@ -18,17 +20,20 @@ const BlogPostTemplate = ({ data, location }) => {
 
   return (
     <Layout location={location}>
+      <SEO title={post.title} />
       <Grid container spacing={3}>
-        <Grid container xs={4} alignItems="center" direction="column">
-          <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
-            <ScrollSpySideBar
-              ids={headingIds.map(e => e.id)}
-              offset={0}
-              isReady={isReady}
-            />
-          </Box>
-        </Grid>
-        <Grid container xs={8}>
+        <Hidden smDown>
+          <Grid container md={4} alignItems="center" direction="column">
+            <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
+              <ScrollSpySideBar
+                ids={headingIds.map(e => e.id)}
+                offset={0}
+                isReady={isReady}
+              />
+            </Box>
+          </Grid>
+        </Hidden>
+        <Grid container xs={12} md={8}>
           <Box mt={7} width="100%">
             <article key={post.title}>
               <header>

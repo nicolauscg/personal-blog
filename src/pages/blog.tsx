@@ -1,7 +1,8 @@
 import React from "react"
 import { graphql } from "gatsby"
+import SEO from "../components/seo"
 import Layout from "../components/layout"
-import Sidebar from "../components/sidebar"
+import Sidebar, { SelectBar } from "../components/sidebar"
 import BlogPostCard from "../components/blog-post-card"
 import { baseThemePalette } from "../styles/color"
 
@@ -11,26 +12,41 @@ import {
 } from "@material-ui/core/styles"
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
+import useMediaQuery from '@material-ui/core/useMediaQuery';
 
 const BlogIndex = ({ data, location }) => {
   const { pathname } = location;
   const activeTag = pathname.startsWith("/blog/tag/") ? pathname.split("/").pop() : "all"
+  const isMediumScreenOrAbove = useMediaQuery(theme.breakpoints.up('md'));
 
   return (
     <Layout location={location}>
+      <SEO title="all posts" />
       <Grid container spacing={3}>
-        <Grid container xs={4} alignItems="center" direction="column">
-          <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
-            <Sidebar
-              heading="tags"
-              data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
-              tagNameDisplayFunc={elem => elem}
-              linkToFunc={tagName => tagName === "all" ? "/blog" : `/blog/tag/${tagName}`}
-              isActiveFunc={tagName => activeTag === tagName}
-            />
-          </Box>
+        <Grid container xs={12} md={4} alignItems="center" direction="column">
+          {isMediumScreenOrAbove ? (
+            <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
+              <Sidebar
+                heading="tags"
+                data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
+                tagNameDisplayFunc={elem => elem}
+                linkToFunc={tagName => tagName === "all" ? "/blog" : `/blog/tag/${tagName}`}
+                isActiveFunc={tagName => activeTag === tagName}
+              />
+            </Box>
+          ) : (
+            <Box mt={2} width="100%">
+              <SelectBar
+                heading="tags"
+                data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
+                tagNameDisplayFunc={elem => elem}
+                linkToFunc={tagName => tagName === "all" ? "/blog" : `/blog/tag/${tagName}`}
+                isActiveFunc={tagName => activeTag === tagName}
+              />
+            </Box>
+          )}
         </Grid>
-        <Grid container xs={8}>
+        <Grid container xs={12} md={8}>
           <Box mt={7} width="100%">
             <MuiThemeProvider theme={theme}>
               {data.allContentfulBlogPost.edges.map(({ node }) => {

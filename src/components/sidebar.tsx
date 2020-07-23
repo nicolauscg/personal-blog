@@ -94,7 +94,7 @@ const useSideBarStyle = makeStyles({
     }
   },
   inputLabelOnFocused: {
-    color: "initial"
+    color: "initial !important"
   }
 })
 

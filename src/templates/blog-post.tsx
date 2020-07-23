@@ -1,7 +1,6 @@
 import React, { useState } from "react"
 import { graphql } from "gatsby"
 
-import Layout from "../components/layout"
 import SEO from "../components/seo"
 import RichTextRenderer from "../components/rich-text-renderer"
 import BlogPostSubtitle from "../components/blog-post-subtitle"
@@ -13,18 +12,18 @@ import Box from '@material-ui/core/Box';
 import Hidden from '@material-ui/core/Hidden';
 import Typography from "@material-ui/core/Typography"
 
-const BlogPostTemplate = ({ data, location }) => {
+const BlogPostTemplate = ({ data }) => {
   const post = data.contentfulBlogPost
   const [headingIds, setHeadingIds] = useState([])
   const [isReady, setIsReady] = useState(false)
 
   return (
-    <Layout location={location}>
+    <>
       <SEO title={post.title} />
       <Grid container spacing={3}>
         <Hidden smDown>
           <Grid container md={4} alignItems="center" direction="column">
-            <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
+            <Box width="15rem" maxWidth="100%" position="fixed" mt={2}>
               <ScrollSpySideBar
                 ids={headingIds.map(e => e.id)}
                 offset={0}
@@ -34,7 +33,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </Grid>
         </Hidden>
         <Grid container xs={12} md={8}>
-          <Box mt={7} width="100%">
+          <Box width="100%">
             <article key={post.title}>
               <header>
                 <Box mb={3}>
@@ -55,7 +54,7 @@ const BlogPostTemplate = ({ data, location }) => {
           </Box>
         </Grid>
       </Grid>
-    </Layout>
+    </>
   )
 }
 

@@ -1,10 +1,10 @@
-import React from "react"
+import React, { useContext } from "react"
 import { graphql } from "gatsby"
 import SEO from "../components/seo"
-import Layout from "../components/layout"
 import Sidebar, { SelectBar } from "../components/sidebar"
 import BlogPostCard from "../components/blog-post-card"
 import { baseThemePalette } from "../styles/color"
+import { IsMediumScreenOrAboveContext, LocationContext } from "../layout/index"
 
 import {
   createMuiTheme,
@@ -12,20 +12,19 @@ import {
 } from "@material-ui/core/styles"
 import Grid from '@material-ui/core/Grid';
 import Box from '@material-ui/core/Box';
-import useMediaQuery from '@material-ui/core/useMediaQuery';
 
-const BlogIndex = ({ data, location }) => {
-  const { pathname } = location;
+const BlogIndex = ({ data }) => {
+  const { pathname } = useContext(LocationContext);
   const activeTag = pathname.startsWith("/blog/tag/") ? pathname.split("/").pop() : "all"
-  const isMediumScreenOrAbove = useMediaQuery(theme.breakpoints.up('md'));
+  const isMediumScreenOrAbove = useContext(IsMediumScreenOrAboveContext)
 
   return (
-    <Layout location={location}>
+    <>
       <SEO title="all posts" />
       <Grid container spacing={3}>
         <Grid container xs={12} md={4} alignItems="center" direction="column">
           {isMediumScreenOrAbove ? (
-            <Box width="15rem" maxWidth="100%" mt={6} position="fixed">
+            <Box width="15rem" maxWidth="100%" mt={2} position="fixed">
               <Sidebar
                 heading="tags"
                 data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
@@ -35,7 +34,7 @@ const BlogIndex = ({ data, location }) => {
               />
             </Box>
           ) : (
-            <Box mt={2} width="100%">
+            <Box width="100%">
               <SelectBar
                 heading="tags"
                 data={["all"].concat(data.allContentfulBlogPostTag.edges.map(({ node }) => node.name))}
@@ -47,7 +46,7 @@ const BlogIndex = ({ data, location }) => {
           )}
         </Grid>
         <Grid container xs={12} md={8}>
-          <Box mt={7} width="100%">
+          <Box width="100%" mt={isMediumScreenOrAbove ? 0 : 2}>
             <MuiThemeProvider theme={theme}>
               {data.allContentfulBlogPost.edges.map(({ node }) => {
                 return <BlogPostCard
@@ -64,7 +63,7 @@ const BlogIndex = ({ data, location }) => {
           </Box>
         </Grid>
       </Grid>
-    </Layout>
+    </>
   )
 }
 

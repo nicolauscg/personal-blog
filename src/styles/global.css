@@ -7,3 +7,7 @@
 .custom-display-inherit {
   display: inherit
 }
+
+*:focus {
+  outline: none !important;
+}

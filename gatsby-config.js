@@ -81,5 +81,11 @@ module.exports = {
       },
     },
     `gatsby-plugin-postcss`,
+    {
+      resolve: `gatsby-plugin-layout`,
+      options: {
+        component: require.resolve(`./src/layout/index.tsx`),
+      },
+    },
   ],
 }

@@ -1,7 +1,8 @@
-import React from "react"
+import React, { useContext } from "react"
 import PropTypes from "prop-types"
 import UnstyledLink from "./unstyled-link"
 import { mainColor, secondaryColor } from "../styles/color"
+import { LocationContext } from "../layout/index"
 
 import { makeStyles } from "@material-ui/core/styles"
 import AppBar from "@material-ui/core/AppBar"
@@ -16,7 +17,8 @@ import Box from "@material-ui/core/Box"
 
 export default function NavBar(props) {
   const classes = useNavBarStyle(props)
-  const isActive = pageName => props.location.pathname.startsWith(`/${pageName}`)
+  const location = useContext(LocationContext)
+  const isActive = pageName => location.pathname.startsWith(`/${pageName}`)
 
   return (
     <>
@@ -27,15 +29,14 @@ export default function NavBar(props) {
             <Toolbar>
               <Box mr={5}>
                 <Typography variant="h5" color="secondary">
-                  <UnstyledLink to={`/blog`}>
+                  <UnstyledLink to='/'>
                     <Box fontWeight="fontWeightBold" px={2} py={1}>
                       nicolauscg
                     </Box>
                   </UnstyledLink>
                 </Typography>
               </Box>
-              {/* {["blog", "project"].map(pageName => ( */}
-              {[].map(pageName => (
+              {["blog"].map(pageName => (
                 <UnstyledLink
                   key={pageName}
                   to={`/${pageName}`}

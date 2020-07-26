@@ -3,17 +3,16 @@ import InfoCard from "./info-card"
 
 export default function ProjectCard({
   title,
-  repoLink,
   techStackList,
-  contentList
+  contentList,
+  links
 }) {
   return (
     <InfoCard
       title={title}
       contentList={contentList}
       techStackList={techStackList}
-      industryName={repoLink ? "repository" : null}
-      industryLink={repoLink}
+      links={links}
     />
   )
 }

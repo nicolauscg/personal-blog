@@ -25,15 +25,17 @@ const HomePage = ({ data }) => {
                         contentList={rest.contentList}
                         dateFromTo={rest.dateFromTo}
                         iconUrl={'https:'+rest.icon.file.url}
-                        industryLink={rest.industryLink}
-                        industryName={rest.industryName}
                         place={rest.place}
                         techStackList={rest.techStackList}
+                        links={[{name: rest.industryName, link: rest.industryLink}]}
                       />
                     ) : (
                       <ProjectCard
                         title={rest.title}
-                        repoLink={rest.repoLink}
+                        links={[]
+                          .concat(rest.repoLink ? {name: "repository", link: rest.repoLink} : [])
+                          .concat(rest.webLink ? {name: "website", link: rest.webLink} : [])
+                        }
                         techStackList={rest.techStackList}
                         contentList={rest.contentList}
                       />
@@ -80,6 +82,7 @@ export const pageQuery = graphql`
                 }
                 contentList
                 repoLink
+                webLink
                 techStackList
               }
             }

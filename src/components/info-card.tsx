@@ -14,10 +14,9 @@ export default function InfoCard({
   contentList,
   dateFromTo = null,
   iconUrl = null,
-  industryLink = null,
-  industryName = null,
   place = null,
-  techStackList = null
+  techStackList = null,
+  links = []
 }) {
   const isMediumScreenOrAbove = useContext(IsMediumScreenOrAboveContext)
 
@@ -38,8 +37,9 @@ export default function InfoCard({
       </Grid>
       <Grid item xs={12} md={8} className="order-3">
         <Typography variant="h6" component="h3" gutterBottom>
-          {title} {industryName && industryLink && 
-            <> — <Link href={industryLink} target="_blank" color="secondary">{industryName}</Link></>
+          {title}
+          {links.map(({name, link}) => 
+            <> — <Link href={link} target="_blank" color="secondary">{name}</Link></>)
           }
         </Typography>
         <ul className="list-disc list-inside pl-2">

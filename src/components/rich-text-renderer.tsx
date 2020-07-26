@@ -1,9 +1,9 @@
 import React, { useEffect, useState, ReactNode, Children } from "react"
-import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
-import { BLOCKS, MARKS } from '@contentful/rich-text-types';
+import { renderRichText } from "gatsby-source-contentful/rich-text"
+import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import _ from "lodash";
 import SyntaxHighlighter from 'react-syntax-highlighter';
-import { github } from 'react-syntax-highlighter/dist/esm/styles/hljs';
+import { dark } from 'react-syntax-highlighter/dist/esm/styles/hljs';
 import { secondaryColor } from "../styles/color"
 
 import clsx from "clsx";
@@ -11,7 +11,8 @@ import { makeStyles } from "@material-ui/core/styles"
 import Typography from "@material-ui/core/Typography";
 import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
-import { Divider } from "@material-ui/core";
+import Link from "@material-ui/core/Link";
+import Divider from "@material-ui/core/Divider";
 
 interface CodeBlockHeadingInfo {
   caption?: string;
@@ -20,7 +21,7 @@ interface CodeBlockHeadingInfo {
   isInline: boolean;
 }
 
-export default function RichTextRenderer({ json, appendHeading, setIsReady, onFinish = ()=>{} }) {
+export default function RichTextRenderer({ content, appendHeading, setIsReady, onFinish = ()=>{} }) {
   const [reactComponent, setReactComponent] = useState(<React.Fragment /> as ReactNode)
   const classes = useRichTextRendererStyle()
   
@@ -45,15 +46,15 @@ export default function RichTextRenderer({ json, appendHeading, setIsReady, onFi
 
           return (
             isInline ? 
-            (<Paper className={clsx("inline", "py-1", "px-2", classes.inlineCode)}>
+            (<Paper className={clsx("inline", "px-2", classes.inlineCode)}>
               <code>{text}</code>
             </Paper>) : 
-            (<Box mb={2}>
+            (<Box mb={2} className={classes.syntaxHighlighter}>
               <Paper>
-                {caption && <Box textAlign="center" className={classes.codeCaption}>{caption}</Box>}
-                <SyntaxHighlighter language={language} style={github}>
+                <SyntaxHighlighter language={language || "plaintext"} style={dark}>
                   {contentText}
                 </SyntaxHighlighter>
+                {caption && <Box textAlign="center" px={2} className={clsx(classes.codeCaption, "text-base")}>{caption}</Box>}
               </Paper>
             </Box>)
           )
@@ -77,6 +78,11 @@ export default function RichTextRenderer({ json, appendHeading, setIsReady, onFi
               classes={{body1: classes.body1}}>{children}</Typography>
           )
         },
+        [INLINES.HYPERLINK]: (node, children) => {
+          return (
+            <Link color="secondary" href={node.data.uri} target="_blank">{children}</Link>
+          )
+        },
         [BLOCKS.UL_LIST]: (_, children) => {
           return (
             <div className={clsx("list-disc", classes.body1)}>{children}</div>
@@ -93,13 +99,22 @@ export default function RichTextRenderer({ json, appendHeading, setIsReady, onFi
           )
         },
         [BLOCKS.HR]: () => <Box my={2}><Divider className={classes.hr}/></Box>,
-        [BLOCKS.QUOTE]: (_, children) => <Box my={2}><blockquote>{children}</blockquote></Box>
+        [BLOCKS.QUOTE]: (_, children) => <Box my={2}><blockquote>{children}</blockquote></Box>,
+        [BLOCKS.EMBEDDED_ASSET]: node => 
+          <Paper className="mb-2">
+            <img src={`https:${node.data.target.file.url}`} className={classes.embeddedAsset} />
+            {node.data.target.description && 
+              <Box textAlign="center" className={classes.codeCaption} px={2}>
+                <Typography variant="body1">{node.data.target.description}</Typography>
+              </Box>
+            }
+          </Paper>
       },
     };
     [BLOCKS.HEADING_2, BLOCKS.HEADING_3, BLOCKS.HEADING_4, BLOCKS.HEADING_5, BLOCKS.HEADING_6].map(blockHeading => {
       options.renderNode[blockHeading] = options.renderNode[BLOCKS.HEADING_1]
     })
-    setReactComponent(documentToReactComponents(json, options))
+    setReactComponent(renderRichText(content, options))
     
     return onFinish
   }, [])
@@ -129,6 +144,18 @@ const useRichTextRendererStyle = makeStyles({
     backgroundColor: secondaryColor[900]
   },
   inlineCode: {
-    backgroundColor: secondaryColor[100]
-  }
+    backgroundColor: secondaryColor[300]
+  },
+  embeddedAsset: {
+    objectFit: "contain",
+    maxHeight: "300px",
+    width: "100%",
+    marginBottom: 0
+  },
+  syntaxHighlighter: {
+    "& pre": {
+      padding: "1rem !important",
+      fontSize: "1rem"
+    }
+  },
 })

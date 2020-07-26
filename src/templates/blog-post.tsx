@@ -44,7 +44,7 @@ const BlogPostTemplate = ({ data }) => {
               </header>
               <section>
                 <RichTextRenderer
-                  json={post.content.json}
+                  content={post.content}
                   appendHeading={(headingId) => setHeadingIds(prevHeadingIds => prevHeadingIds.concat(headingId))}
                   setIsReady={setIsReady}
                   onFinish={() => setHeadingIds(prevHeadingIds => [])}
@@ -81,7 +81,17 @@ export const pageQuery = graphql`
       createdAt(formatString: "Do MMMM YYYY")
       updatedAt(formatString: "Do MMMM YYYY")
       content {
-        json
+        raw
+        references {
+          id
+          ... on ContentfulAsset {
+            file {
+              url
+            }
+            contentful_id
+            description
+          }
+        }
       }
     }
   }

@@ -9,7 +9,6 @@ import Box from "@material-ui/core/Box";
 import Button from '@material-ui/core/Button';
 import InputLabel from '@material-ui/core/InputLabel';
 import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
@@ -20,7 +19,7 @@ const SideBarItem = ({ isActive, displayName, handleClick }) => {
     <Typography gutterBottom={true} className={clsx(isActive && classes.active)} onClick={handleClick}>
       <Button classes={{ label:  "justify-start" }} fullWidth={true}
         className={classes.tagButton}>
-        <Box mx={1}>
+        <Box mx={1} textAlign="left">
           {displayName}
         </Box>
       </Button>

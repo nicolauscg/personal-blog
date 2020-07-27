@@ -129,7 +129,7 @@ export class ScrollSpySideBar extends React.Component<ScrollspyProps, ScrollspyS
      
   private timer: number;
 
-  private spy() {
+  private spy(overrideCheck = false) {
     const items = this.props.ids
       .map(id => {
         const element = document.getElementById(id);
@@ -142,11 +142,10 @@ export class ScrollSpySideBar extends React.Component<ScrollspyProps, ScrollspyS
           return;
         }
       })
-      .filter(item => item);
 
     const firstTrueItem = items.find(item => !!item && item.inView);
 
-    if (!firstTrueItem) {
+    if (!overrideCheck && !firstTrueItem) {
       return; // dont update state
     } else {
       const update = items.map(item => {
@@ -163,9 +162,9 @@ export class ScrollSpySideBar extends React.Component<ScrollspyProps, ScrollspyS
 
   public componentDidUpdate(prevProps) {
     if (prevProps.isReady !== this.props.isReady && 
-        this.props.isReady === true && 
-        window.location.hash) {
-      this.scrollTo(document.getElementById(window.location.hash.slice(1)))
+        this.props.isReady === true) {
+      this.spy(true)
+      if (window.location.hash) this.scrollTo(document.getElementById(window.location.hash.slice(1)))
     }
   }
 

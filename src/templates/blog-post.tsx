@@ -36,7 +36,7 @@ const BlogPostTemplate = ({ data }) => {
           <Box width="100%">
             <article key={post.title}>
               <header>
-                <Box mb={3}>
+                <Box mb={3} lineHeight="normal">
                   <Hero imageUrl={`https:${post.hero.file.url}`} />
                   <Typography variant="h2" component="h1" color="textSecondary">{post.title}</Typography>
                   <BlogPostSubtitle tags={post.tags} createDate={post.createdAt} updateDate={post.updatedAt} variant="subtitle1" />

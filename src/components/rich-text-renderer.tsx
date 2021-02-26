@@ -1,5 +1,4 @@
-import React, { useEffect, useState, ReactNode, Children } from "react"
-import { renderRichText } from "gatsby-source-contentful/rich-text"
+import React, { useEffect, useState, ReactNode } from "react"
 import { BLOCKS, MARKS, INLINES } from '@contentful/rich-text-types';
 import _ from "lodash";
 import SyntaxHighlighter from 'react-syntax-highlighter';
@@ -13,6 +12,7 @@ import Box from "@material-ui/core/Box";
 import Paper from "@material-ui/core/Paper";
 import Link from "@material-ui/core/Link";
 import Divider from "@material-ui/core/Divider";
+import { documentToReactComponents } from '@contentful/rich-text-react-renderer';
 
 interface CodeBlockHeadingInfo {
   caption?: string;
@@ -24,8 +24,24 @@ interface CodeBlockHeadingInfo {
 export default function RichTextRenderer({ content, appendHeading, setIsReady, onFinish = ()=>{} }) {
   const [reactComponent, setReactComponent] = useState(<React.Fragment /> as ReactNode)
   const classes = useRichTextRendererStyle()
-  
+
+  // renderRichText does not correcly add reference, manually done using createReferencesMap and addReference
+  const createReferencesMap = references => 
+    Object.assign({}, ...references.map(({contentful_id, file, description}) => ({[contentful_id]: ({file, description}) })))
+  const addReference = (node, referencesMap) => {
+    const nodeCopy = {...node}
+    nodeCopy.data.target = {
+      ...nodeCopy.data.target,
+      ...referencesMap[nodeCopy.data.target.sys.id]
+    }
+
+    return nodeCopy
+  }
+
   useEffect(() => {
+    const richTextDocument = JSON.parse(content.raw)
+    const referencesMap = createReferencesMap(content.references)
+
     const generateId = text => _.kebabCase(text)
     const isCodeBlock = text => {
       const newLineIndex = text.indexOf('\n')
@@ -100,21 +116,23 @@ export default function RichTextRenderer({ content, appendHeading, setIsReady, o
         },
         [BLOCKS.HR]: () => <Box my={2}><Divider className={classes.hr}/></Box>,
         [BLOCKS.QUOTE]: (_, children) => <Box my={2}><blockquote>{children}</blockquote></Box>,
-        [BLOCKS.EMBEDDED_ASSET]: node => 
-          <Paper className="mb-2">
-            <img src={`https:${node.data.target.file.url}`} className={classes.embeddedAsset} />
-            {node.data.target.description && 
+        [BLOCKS.EMBEDDED_ASSET]: node => {
+          const nodeWithReference = addReference(node, referencesMap)
+          return (<Paper className="mb-2">
+            <img src={`https:${nodeWithReference.data.target.file.url}`} className={classes.embeddedAsset} />
+            {nodeWithReference.data.target.description && 
               <Box textAlign="center" className={classes.codeCaption} px={2}>
-                <Typography variant="body1">{node.data.target.description}</Typography>
+                <Typography variant="body1">{nodeWithReference.data.target.description}</Typography>
               </Box>
             }
-          </Paper>
+          </Paper>)
+        }
       },
     };
     [BLOCKS.HEADING_2, BLOCKS.HEADING_3, BLOCKS.HEADING_4, BLOCKS.HEADING_5, BLOCKS.HEADING_6].map(blockHeading => {
       options.renderNode[blockHeading] = options.renderNode[BLOCKS.HEADING_1]
     })
-    setReactComponent(renderRichText(content, options))
+    setReactComponent(documentToReactComponents(richTextDocument, options))
     
     return onFinish
   }, [])

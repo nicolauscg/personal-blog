@@ -4,6 +4,7 @@ import Link from "next/link";
 import { AppBar, Container, Toolbar, Typography } from "@mui/material";
 import NameIcon from "../components/NameIcon";
 import Emoji from "../components/Emoji";
+import StyledMark from "../components/StyledMark";
 
 const Home: NextPage = () => {
   return (
@@ -45,11 +46,17 @@ const Home: NextPage = () => {
               <Emoji label="hand wave" symbol="👋" />
             </div>
             <Typography variant="h6" component="h2" className="font-thin">
-              Hello! I&apos;m Nicolaus.
+              <span className="realistic-marker-highlight">Hello!</span>{" "}
+              I&apos;m Nicolaus.
             </Typography>
             <Typography variant="h4" component="h1" className="font-thin">
               I am a final year computer science student in Australia with a
-              keen interest in software engineering and web development.
+              keen interest in {/* TODO use theme */}
+              <StyledMark colorHex="#3f50b5">
+                software engineering
+              </StyledMark>{" "}
+              and
+              <StyledMark colorHex="#3f50b5">web development</StyledMark>.
             </Typography>
           </div>
         </Container>

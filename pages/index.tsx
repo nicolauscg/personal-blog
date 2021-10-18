@@ -1,7 +1,17 @@
 import type { NextPage } from "next";
 import Head from "next/head";
 import Link from "next/link";
-import { AppBar, Container, Toolbar, Typography } from "@mui/material";
+import {
+  AppBar,
+  Button,
+  Container,
+  IconButton,
+  Toolbar,
+  Typography,
+} from "@mui/material";
+import EmailIcon from "@mui/icons-material/Email";
+import LinkedInIcon from "@mui/icons-material/LinkedIn";
+import GitHubIcon from "@mui/icons-material/GitHub";
 import NameIcon from "../components/NameIcon";
 import Emoji from "../components/Emoji";
 import StyledMark from "../components/StyledMark";
@@ -58,12 +68,63 @@ const Home: NextPage = () => {
               and
               <StyledMark colorHex="#3f50b5">web development</StyledMark>.
             </Typography>
+            <div className="flex items-center">
+              <Typography
+                variant="h6"
+                component="h2"
+                className="font-thin mr-4"
+              >
+                Feel free to drop a message at
+              </Typography>
+              <Button
+                variant="outlined"
+                classes={{
+                  root: "normal-case rounded-3xl",
+                }}
+              >
+                <Typography variant="h5" component="h3">
+                  nicolauscg@gmail.com
+                </Typography>
+              </Button>
+            </div>
           </div>
         </Container>
       </main>
       <footer>
-        <Container maxWidth="xl" disableGutters>
-          footer
+        <Container
+          maxWidth="xl"
+          classes={{
+            root: "flex",
+          }}
+        >
+          <div>
+            <Typography variant="subtitle1" component="span">
+              more elsewhere
+            </Typography>
+            <span className="ml-2">
+              <Link href="mailto:nicolauscg@gmail.com">
+                <a target="_blank">
+                  <IconButton>
+                    <EmailIcon />
+                  </IconButton>
+                </a>
+              </Link>
+              <Link href="https://www.linkedin.com/in/nicolauscg/">
+                <a target="_blank">
+                  <IconButton>
+                    <LinkedInIcon />
+                  </IconButton>
+                </a>
+              </Link>
+              <Link href="https://github.com/nicolauscg">
+                <a target="_blank">
+                  <IconButton>
+                    <GitHubIcon />
+                  </IconButton>
+                </a>
+              </Link>
+            </span>
+          </div>
         </Container>
       </footer>
     </div>

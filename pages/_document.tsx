@@ -5,6 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
+import theme from "../components/theme";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {
@@ -16,6 +17,7 @@ class MyDocument extends Document {
     return (
       <Html lang="en">
         <Head>
+          <meta name="theme-color" content={theme.palette.primary.main} />
         </Head>
         <body>
           <div id="app">

@@ -34,7 +34,14 @@ const Home: NextPage = () => {
                 </a>
               </Link>
               <div className="flex-1" />
-              <Typography>
+              <Typography
+                sx={{
+                  display: {
+                    xs: "none",
+                    sm: "block",
+                  },
+                }}
+              >
                 Soon to work at{" "}
                 <Link href="https://www.csgi.com/">
                   <a target="_blank">
@@ -59,12 +66,12 @@ const Home: NextPage = () => {
               <span className="realistic-marker-highlight">Hello!</span>{" "}
               I&apos;m Nicolaus.
             </Typography>
-            <Typography variant="h4" component="h1" className="font-thin">
+            <Typography variant="h4" component="h1" className="font-thin mb-4">
               I am a final year computer science student in Australia with a
               keen interest in <StyledMark>software engineering</StyledMark> and
               <StyledMark>web development</StyledMark>.
             </Typography>
-            <div className="flex items-center">
+            <div className="flex flex-wrap items-center">
               <Typography
                 variant="h6"
                 component="h2"

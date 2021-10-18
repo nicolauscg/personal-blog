@@ -61,28 +61,30 @@ const Home: NextPage = () => {
             </Typography>
             <Typography variant="h4" component="h1" className="font-thin">
               I am a final year computer science student in Australia with a
-              keen interest in {/* TODO use theme */}
-              <StyledMark colorHex="#3f50b5">
-                software engineering
-              </StyledMark>{" "}
-              and
-              <StyledMark colorHex="#3f50b5">web development</StyledMark>.
+              keen interest in <StyledMark>software engineering</StyledMark> and
+              <StyledMark>web development</StyledMark>.
             </Typography>
             <div className="flex items-center">
               <Typography
                 variant="h6"
                 component="h2"
-                className="font-thin mr-4"
+                className="font-thin mr-2"
               >
-                Feel free to drop a message at
+                Feel free to reach out at
               </Typography>
               <Button
                 variant="outlined"
                 classes={{
-                  root: "normal-case rounded-3xl",
+                  root: "rounded-3xl",
                 }}
               >
-                <Typography variant="h5" component="h3">
+                <Typography
+                  variant="h5"
+                  component="h3"
+                  classes={{
+                    root: "normal-case",
+                  }}
+                >
                   nicolauscg@gmail.com
                 </Typography>
               </Button>

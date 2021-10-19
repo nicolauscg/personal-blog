@@ -17,7 +17,7 @@ const Home: NextPage = () => {
           root: "flex flex-col justify-center flex-1",
         }}
       >
-        <div className="my-6">
+        <div>
           <div className="text-4xl mb-4">
             <Emoji label="hand wave" symbol="👋" />
           </div>

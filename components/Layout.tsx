@@ -51,7 +51,7 @@ export default function Layout({ children }: LayoutProps) {
             </Toolbar>
           </Container>
         </AppBar>
-        <main className="flex flex-col flex-1">{children}</main>
+        <main className="flex flex-col flex-1 py-6">{children}</main>
       </div>
       <footer>
         <Container

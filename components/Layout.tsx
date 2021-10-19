@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import Head from "next/head";
 import Link from "next/link";
 import {
   AppBar,
@@ -19,6 +20,9 @@ interface LayoutProps {
 export default function Layout({ children }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
+      <Head>
+        <link rel="icon" href="/favicon.ico" />
+      </Head>
       <div className="flex flex-col flex-1">
         <AppBar position="static" color="transparent">
           <Container maxWidth="xl" disableGutters>

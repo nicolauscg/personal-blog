@@ -6,7 +6,7 @@ import { getDatabase } from "../../lib/notion";
 
 export const databaseId = process.env.BLOG_DATABASE_ID;
 
-export default function Home({
+export default function BlogIndex({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (

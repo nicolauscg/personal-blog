@@ -2,7 +2,7 @@ import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
 import { Container, Typography, Stack } from "@mui/material";
 import { revalidateDurationInSec } from "../../components/contants";
-import { notionClient } from "../../lib/notion";
+import { queryDatabase } from "../../lib/notion";
 import InfoCard from "../../components/InfoCard";
 
 export const databaseId = process.env.BLOG_DATABASE_ID;
@@ -42,8 +42,8 @@ export default function BlogIndex({
 }
 
 export const getStaticProps = async () => {
-  const database = (
-    await notionClient.databases.query({
+  const posts = (
+    await queryDatabase({
       database_id: databaseId!,
       ...(process.env.NODE_ENV !== "development" && {
         filter: {
@@ -58,7 +58,7 @@ export const getStaticProps = async () => {
 
   return {
     props: {
-      posts: database,
+      posts,
     },
     revalidate: revalidateDurationInSec,
   };

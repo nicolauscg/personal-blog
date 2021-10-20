@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Paper, Chip, Container, Grid, Stack, Typography } from "@mui/material";
+import { Paper, Chip, Grid, Stack, Typography } from "@mui/material";
 import { RichText } from "../components/RichText";
 
 interface InfoCardProps {

@@ -1,4 +1,9 @@
 import "tailwindcss/tailwind.css";
+// use copied css styling from react-notion-x for customization
+import "../styles/react-notion-x-styles.css";
+// used for code syntax highlighting (optional)
+import "prismjs/themes/prism.css";
+
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,6 +21,7 @@ interface MyAppProps {
   emotionCache: EmotionCache;
   pageProps: any;
 }
+
 function MyApp(props: MyAppProps) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
 

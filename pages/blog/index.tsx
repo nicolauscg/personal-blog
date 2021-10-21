@@ -2,7 +2,7 @@ import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
 import { Container, Typography, Stack } from "@mui/material";
 import { revalidateDurationInSec } from "../../lib/contants";
-import { queryDatabase } from "../../lib/notion";
+import { parseBlogPostProp, queryDatabase } from "../../lib/notion";
 import InfoCard from "../../components/InfoCard";
 
 export const databaseId = process.env.BLOG_DATABASE_ID;
@@ -24,15 +24,11 @@ export default function BlogIndex({
           {posts.map((post) => (
             <InfoCard
               key={post.id}
-              title={(post.properties.Name as any).title}
+              title={post.title}
               link={`/blog/${post.id}`}
-              tags={(post.properties as any).Tags["multi_select"]}
-              dateTime={
-                (post.properties as any)["Last edited time"]["last_edited_time"]
-              }
-              thumbnailUrl={
-                (post.properties as any).Thumbnail.files?.[0]?.file?.url
-              }
+              tags={post.tags}
+              dateTime={post.lastEditedDateTime}
+              thumbnailUrl={post.thumbnailUrl}
             />
           ))}
         </Stack>
@@ -42,7 +38,7 @@ export default function BlogIndex({
 }
 
 export const getStaticProps = async () => {
-  const posts = (
+  const pages = (
     await queryDatabase({
       database_id: databaseId!,
       ...(process.env.NODE_ENV !== "development" && {
@@ -55,6 +51,7 @@ export const getStaticProps = async () => {
       }),
     })
   ).results;
+  const posts = pages.map(parseBlogPostProp);
 
   return {
     props: {

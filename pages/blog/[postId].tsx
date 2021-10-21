@@ -1,9 +1,9 @@
 import Link from "next/link";
-import { queryDatabase, getPage } from "../../lib/notion";
+import { queryDatabase, getPageContent } from "../../lib/notion";
 import { databaseId } from "./index";
 import { revalidateDurationInSec } from "../../lib/contants";
 import { InferGetStaticPropsType } from "next";
-import { Container, Typography } from "@mui/material";
+import { Container } from "@mui/material";
 import { NotionRenderer, Code } from "react-notion-x";
 
 export default function BlogPost({
@@ -67,7 +67,7 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
   const postId = context.params?.postId as string;
-  const pageRecordMap = await getPage(postId);
+  const pageRecordMap = await getPageContent(postId);
 
   return {
     props: {

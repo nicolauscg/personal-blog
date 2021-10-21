@@ -1,20 +1,18 @@
 import Link from "next/link";
 import { Paper, Chip, Grid, Stack, Typography } from "@mui/material";
 import { RichText } from "../components/RichText";
+import { NotionTag, NotionTextColor } from "../lib/types";
 
 interface InfoCardProps {
   title: any;
   link: string;
-  tags?: {
-    name: string;
-    color: string;
-  }[];
+  tags?: NotionTag[];
   dateTime: string;
-  thumbnailUrl?: string | undefined;
+  thumbnailUrl?: string | null;
 }
 
 export default function InfoCard(props: InfoCardProps) {
-  const { title, link, tags = [], dateTime, thumbnailUrl = undefined } = props;
+  const { title, link, tags = [], dateTime, thumbnailUrl = null } = props;
 
   const parseDate = (dateStr: string) => {
     const date = new Date(dateStr);
@@ -27,7 +25,7 @@ export default function InfoCard(props: InfoCardProps) {
   };
 
   const notionTagColorToMuiColor: {
-    [notionColor: string]:
+    [key in NotionTextColor]:
       | "default"
       | "success"
       | "warning"

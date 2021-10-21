@@ -5,7 +5,7 @@ import Document, {
   NextScript,
   DocumentContext,
 } from "next/document";
-import theme from "../components/theme";
+import theme from "../styles/theme";
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

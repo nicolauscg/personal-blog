@@ -8,8 +8,8 @@ import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
 import { CacheProvider, EmotionCache } from "@emotion/react";
-import theme from "../components/theme";
-import createEmotionCache from "../components/createEmotionCache";
+import theme from "../styles/theme";
+import createEmotionCache from "../lib/createEmotionCache";
 import { NextComponentType, NextPageContext } from "next";
 import Layout from "../components/Layout";
 

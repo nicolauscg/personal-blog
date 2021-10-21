@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
 import { Container, Typography, Stack } from "@mui/material";
-import { revalidateDurationInSec } from "../../components/contants";
+import { revalidateDurationInSec } from "../../lib/contants";
 import { queryDatabase } from "../../lib/notion";
 import InfoCard from "../../components/InfoCard";
 

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { queryDatabase, getPage } from "../../lib/notion";
 import { databaseId } from "./index";
-import { revalidateDurationInSec } from "../../components/contants";
+import { revalidateDurationInSec } from "../../lib/contants";
 import { InferGetStaticPropsType } from "next";
 import { Container, Typography } from "@mui/material";
 import { NotionRenderer, Code } from "react-notion-x";

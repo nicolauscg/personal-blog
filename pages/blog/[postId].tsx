@@ -1,16 +1,55 @@
 import Link from "next/link";
-import { queryDatabase, getPageContent } from "../../lib/notion";
+import { Chip, Stack, Typography } from "@mui/material";
+import {
+  queryDatabase,
+  getPageContent,
+  getPageProp,
+  parseBlogPostProp,
+} from "../../lib/notionApi";
+import { parseNotionTextColor, parseDateTime } from "../../lib/notionHelpers";
 import { databaseId } from "./index";
 import { revalidateDurationInSec } from "../../lib/contants";
+import { RichText } from "../../components/RichText";
 import { InferGetStaticPropsType } from "next";
 import { Container } from "@mui/material";
 import { NotionRenderer, Code } from "react-notion-x";
 
 export default function BlogPost({
+  post,
   pageRecordMap,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <Container maxWidth="md">
+      {post.thumbnailUrl && (
+        <div
+          className="w-full aspect-w-2 aspect-h-1 rounded-lg"
+          style={{
+            backgroundImage: `url(${post.thumbnailUrl})`,
+            backgroundSize: "contain",
+            backgroundRepeat: "no-repeat",
+            backgroundPosition: "center",
+          }}
+        />
+      )}
+      <div className="my-4 flex flex-col items-center">
+        <Stack direction="row" spacing={1}>
+          {post.tags.map((tag) => (
+            <Chip
+              className="border-2"
+              label={tag.name}
+              variant="outlined"
+              size="small"
+              color={parseNotionTextColor(tag.color)}
+            />
+          ))}
+        </Stack>
+        <Typography variant="h3" component="h1">
+          <RichText text={post.title} />
+        </Typography>
+        <Typography variant="subtitle1">
+          {parseDateTime(post.lastEditedDateTime)}
+        </Typography>
+      </div>
       <NotionRenderer
         recordMap={pageRecordMap}
         darkMode={false}
@@ -67,10 +106,15 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async (context: any) => {
   const postId = context.params?.postId as string;
+
+  const pageProp = await getPageProp(postId);
+  const post = parseBlogPostProp(pageProp);
+
   const pageRecordMap = await getPageContent(postId);
 
   return {
     props: {
+      post,
       pageRecordMap,
     },
     revalidate: revalidateDurationInSec,

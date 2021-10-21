@@ -2,7 +2,7 @@ import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
 import { Container, Typography, Stack } from "@mui/material";
 import { revalidateDurationInSec } from "../../lib/contants";
-import { parseBlogPostProp, queryDatabase } from "../../lib/notion";
+import { parseBlogPostProp, queryDatabase } from "../../lib/notionApi";
 import InfoCard from "../../components/InfoCard";
 
 export const databaseId = process.env.BLOG_DATABASE_ID;

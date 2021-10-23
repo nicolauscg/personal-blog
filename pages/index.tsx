@@ -1,10 +1,12 @@
-import type { NextPage } from "next";
 import Head from "next/head";
+import Link from "next/link";
 import { Button, Container, Typography } from "@mui/material";
 import Emoji from "../components/Emoji";
 import StyledMark from "../components/StyledMark";
+import { ReactElement } from "react";
+import Layout from "../components/Layout";
 
-const Home: NextPage = () => {
+export default function Home() {
   return (
     <>
       <Head>
@@ -55,6 +57,30 @@ const Home: NextPage = () => {
       </Container>
     </>
   );
-};
+}
 
-export default Home;
+Home.getLayout = function getLayout(page: ReactElement) {
+  return (
+    <Layout
+      navs={[
+        <Typography
+          sx={{
+            display: {
+              xs: "none",
+              sm: "block",
+            },
+          }}
+        >
+          Soon to work at{" "}
+          <Link href="https://www.csgi.com/">
+            <a target="_blank">
+              <span className="text-red-500 font-bold">CSG</span>
+            </a>
+          </Link>
+        </Typography>,
+      ]}
+    >
+      {page}
+    </Layout>
+  );
+};

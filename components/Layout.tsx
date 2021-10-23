@@ -15,9 +15,10 @@ import NameIcon from "../components/NameIcon";
 
 interface LayoutProps {
   children: ReactNode;
+  navs?: ReactNode[];
 }
 
-export default function Layout({ children }: LayoutProps) {
+export default function Layout({ children, navs = [] }: LayoutProps) {
   return (
     <div className="flex flex-col min-h-screen">
       <Head>
@@ -33,21 +34,7 @@ export default function Layout({ children }: LayoutProps) {
                 </a>
               </Link>
               <div className="flex-1" />
-              <Typography
-                sx={{
-                  display: {
-                    xs: "none",
-                    sm: "block",
-                  },
-                }}
-              >
-                Soon to work at{" "}
-                <Link href="https://www.csgi.com/">
-                  <a target="_blank">
-                    <span className="text-red-500 font-bold">CSG</span>
-                  </a>
-                </Link>
-              </Typography>
+              {navs}
             </Toolbar>
           </Container>
         </AppBar>

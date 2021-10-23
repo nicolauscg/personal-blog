@@ -1,3 +1,6 @@
+import { NextPage } from "next";
+import { ReactElement, ReactNode } from "react";
+
 export interface NotionRichText {
   type: "text";
   text: {
@@ -60,3 +63,11 @@ export interface NotionBlogPost {
   thumbnailUrl: string | null;
   published: boolean;
 }
+
+export type NextPageWithLayout = NextPage & {
+  getLayout?: (page: ReactElement) => ReactNode;
+};
+
+export type PagePropsWithLayout<T> = T & {
+  Component: NextPageWithLayout;
+};

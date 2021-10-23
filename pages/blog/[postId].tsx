@@ -18,6 +18,10 @@ export default function BlogPost({
   post,
   pageRecordMap,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
+  if (!post || !pageRecordMap) {
+    return <></>;
+  }
+
   return (
     <Container maxWidth="md">
       {post.thumbnailUrl && (

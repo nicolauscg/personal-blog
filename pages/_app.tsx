@@ -12,6 +12,7 @@ import theme from "../styles/theme";
 import createEmotionCache from "../lib/createEmotionCache";
 import { NextComponentType, NextPageContext } from "next";
 import Layout from "../components/Layout";
+import { PagePropsWithLayout } from "../lib/types";
 
 // Client-side cache, shared for the whole session of the user in the browser.
 const clientSideEmotionCache = createEmotionCache();
@@ -22,8 +23,11 @@ interface MyAppProps {
   pageProps: any;
 }
 
-function MyApp(props: MyAppProps) {
+function MyApp(props: PagePropsWithLayout<MyAppProps>) {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props;
+
+  // Use the layout defined at the page level, if available
+  const getLayout = Component.getLayout || ((page) => <Layout>{page}</Layout>);
 
   return (
     <CacheProvider value={emotionCache}>
@@ -34,9 +38,7 @@ function MyApp(props: MyAppProps) {
       <ThemeProvider theme={theme}>
         {/* CssBaseline kickstart an elegant, consistent, and simple baseline to build upon. */}
         <CssBaseline />
-        <Layout>
-          <Component {...pageProps} />
-        </Layout>
+        {getLayout(<Component {...pageProps} />)}
       </ThemeProvider>
     </CacheProvider>
   );

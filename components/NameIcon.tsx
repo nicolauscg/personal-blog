@@ -4,6 +4,8 @@ interface NameIconProps {
 }
 
 export default function NameIcon(props: NameIconProps) {
+  // font is Caveat from google fonts, svg generated from google-font-to-svg-path
+
   const { width = 253.131, color = "black" } = props;
 
   return (

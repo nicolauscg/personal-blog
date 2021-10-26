@@ -29,7 +29,7 @@ export default function Home() {
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
             I am a final year computer science student in Australia with a keen
-            interest in <StyledMark>software engineering</StyledMark> and
+            interest in <StyledMark>software engineering</StyledMark> and{" "}
             <StyledMark>web development</StyledMark>.
           </Typography>
           <div className="flex flex-wrap items-center">

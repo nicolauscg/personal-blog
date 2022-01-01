@@ -1,6 +1,6 @@
 import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
-import { Container, Typography, Stack, Alert } from "@mui/material";
+import { Container, Typography, Stack } from "@mui/material";
 import { revalidateDurationInSec } from "../../lib/contants";
 import { parseBlogPostProp, queryDatabase } from "../../lib/notionApi";
 import InfoCard from "../../components/InfoCard";
@@ -17,9 +17,6 @@ export default function BlogIndex({
         <meta name="description" content="All blog posts" />
       </Head>
       <Container maxWidth="md">
-        <Alert severity="warning" className="mb-4">
-          This page is still in the works! Check in again in the future.
-        </Alert>
         <Typography variant="h4" component="h1" gutterBottom>
           All posts
         </Typography>

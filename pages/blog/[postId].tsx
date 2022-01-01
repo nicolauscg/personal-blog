@@ -12,7 +12,7 @@ import { revalidateDurationInSec } from "../../lib/contants";
 import { RichText } from "../../components/RichText";
 import { InferGetStaticPropsType } from "next";
 import { Container } from "@mui/material";
-import { NotionRenderer, Code } from "react-notion-x";
+import { NotionRenderer, Code, CollectionRow } from "react-notion-x";
 
 export default function BlogPost({
   post,
@@ -83,6 +83,7 @@ export default function BlogPost({
             </Link>
           ),
           code: Code,
+          collectionRow: CollectionRow,
         }}
       />
     </Container>

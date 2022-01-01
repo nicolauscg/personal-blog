@@ -5,6 +5,7 @@ import Emoji from "../components/Emoji";
 import StyledMark from "../components/StyledMark";
 import { ReactElement } from "react";
 import Layout from "../components/Layout";
+import PulsatingCircle from "../components/PulsatingCircle";
 
 export default function Home() {
   return (
@@ -71,7 +72,8 @@ Home.getLayout = function getLayout(page: ReactElement) {
             },
           }}
         >
-          Soon to work at{" "}
+          <PulsatingCircle />
+          Currently working at{" "}
           <Link href="https://www.csgi.com/">
             <a target="_blank">
               <span className="text-red-500 font-bold">CSG</span>

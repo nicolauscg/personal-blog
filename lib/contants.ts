@@ -1,1 +1,1 @@
-export const revalidateDurationInSec = 3600;
+export const revalidateDurationInSec = 60;

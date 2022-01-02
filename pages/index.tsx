@@ -1,10 +1,11 @@
 import Head from "next/head";
 import Link from "next/link";
-import { Button, Container, Typography } from "@mui/material";
+import { Button, Container, Typography, Link as MuiLink } from "@mui/material";
 import Emoji from "../components/Emoji";
 import StyledMark from "../components/StyledMark";
 import { ReactElement } from "react";
 import Layout from "../components/Layout";
+import PulsatingCircle from "../components/PulsatingCircle";
 
 export default function Home() {
   return (
@@ -24,35 +25,44 @@ export default function Home() {
             <Emoji label="hand wave" symbol="👋" />
           </div>
           <Typography variant="h6" component="h2" className="font-thin">
-            <span className="realistic-marker-highlight">Hello!</span> I&apos;m
+            <span className="realistic-marker-highlight">Hi!</span> I&apos;m
             Nicolaus.
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
-            I am a final year computer science student in Australia with a keen
-            interest in <StyledMark>software engineering</StyledMark> and{" "}
+            A computer science grad in Australia with a keen interest in{" "}
+            <StyledMark>software engineering</StyledMark> and{" "}
             <StyledMark>web development</StyledMark>.
           </Typography>
-          <div className="flex flex-wrap items-center">
-            <Typography variant="h6" component="h2" className="font-thin mr-2">
-              Feel free to reach out at
-            </Typography>
-            <Button
-              variant="outlined"
+          <Typography variant="h6" component="h2" className="font-thin">
+            I write about the development of my projects in my{" "}
+            <Link href="/blog">
+              <Typography variant="h5" component="a">
+                <MuiLink>
+                  <span className="font-bold cursor-pointer">/blog</span>
+                </MuiLink>
+              </Typography>
+            </Link>
+            .
+          </Typography>
+          <Typography variant="h6" component="h2" className="font-thin mr-2">
+            To reach out, greet me at
+          </Typography>
+          <Button
+            variant="outlined"
+            classes={{
+              root: "rounded-3xl mt-2",
+            }}
+          >
+            <Typography
+              variant="h5"
+              component="h3"
               classes={{
-                root: "rounded-3xl",
+                root: "normal-case",
               }}
             >
-              <Typography
-                variant="h5"
-                component="h3"
-                classes={{
-                  root: "normal-case",
-                }}
-              >
-                nicolauscg@gmail.com
-              </Typography>
-            </Button>
-          </div>
+              nicolauscg@gmail.com
+            </Typography>
+          </Button>
         </div>
       </Container>
     </>
@@ -71,7 +81,8 @@ Home.getLayout = function getLayout(page: ReactElement) {
             },
           }}
         >
-          Soon to work at{" "}
+          <PulsatingCircle />
+          Currently working at{" "}
           <Link href="https://www.csgi.com/">
             <a target="_blank">
               <span className="text-red-500 font-bold">CSG</span>

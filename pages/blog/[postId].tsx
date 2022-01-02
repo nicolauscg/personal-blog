@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Chip, Stack, Typography } from "@mui/material";
+import { Button, Chip, Stack, Typography } from "@mui/material";
 import {
   queryDatabase,
   getPageContent,
@@ -12,7 +12,8 @@ import { revalidateDurationInSec } from "../../lib/contants";
 import { RichText } from "../../components/RichText";
 import { InferGetStaticPropsType } from "next";
 import { Container } from "@mui/material";
-import { NotionRenderer, Code, CollectionRow } from "react-notion-x";
+import { NotionRenderer, Code } from "react-notion-x";
+import { ArrowBack } from "@mui/icons-material";
 
 export default function BlogPost({
   post,
@@ -24,6 +25,11 @@ export default function BlogPost({
 
   return (
     <Container maxWidth="md">
+      <Button startIcon={<ArrowBack />}>
+        <Link href="/blog">
+          <span className="normal-case">Back to all posts</span>
+        </Link>
+      </Button>
       {post.thumbnailUrl && (
         <div
           className="w-full aspect-w-2 aspect-h-1 rounded-lg"
@@ -83,7 +89,6 @@ export default function BlogPost({
             </Link>
           ),
           code: Code,
-          collectionRow: CollectionRow,
         }}
       />
     </Container>

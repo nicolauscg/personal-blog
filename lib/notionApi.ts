@@ -27,6 +27,9 @@ export const parseBlogPostProp = (pageProp: any): NotionBlogPost => {
   return {
     id: pageProp.id as string,
     title: pageProp.properties.Name.title as NotionRichText[],
+    titleAsPlainText: (pageProp.properties.Name.title as NotionRichText[])
+      .map((richText) => richText.plain_text)
+      .join(" "),
     tags: pageProp.properties.Tags["multi_select"] as NotionTag[],
     lastEditedDateTime: pageProp.properties["Last edited time"][
       "last_edited_time"

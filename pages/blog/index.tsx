@@ -5,8 +5,6 @@ import { revalidateDurationInSec } from "../../lib/contants";
 import { parseBlogPostProp, queryDatabase } from "../../lib/notionApi";
 import InfoCard from "../../components/InfoCard";
 
-export const databaseId = process.env.BLOG_DATABASE_ID;
-
 export default function BlogIndex({
   posts,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
@@ -40,7 +38,7 @@ export default function BlogIndex({
 export const getStaticProps = async () => {
   const pages = (
     await queryDatabase({
-      database_id: databaseId!,
+      database_id: process.env.BLOG_DATABASE_ID!,
       ...(process.env.NODE_ENV !== "development" && {
         filter: {
           property: "Published",

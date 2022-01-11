@@ -57,6 +57,7 @@ export interface NotionTag {
 export interface NotionBlogPost {
   id: string;
   title: NotionRichText[];
+  titleAsPlainText: string;
   tags: NotionTag[];
   lastEditedDateTime: string;
   createdDateTime: string;

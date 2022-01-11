@@ -1,4 +1,9 @@
-/* modified from react-notion-x */
+/* modified from react-notion-x
+
+- changed .notion-viewport class selector's position property from relative to
+  fixed to not block other page interactions 
+  
+*/
 
 :root {
   --fg-color: rgb(55, 53, 47);

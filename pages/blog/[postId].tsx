@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Button, Chip, Stack, Typography } from "@mui/material";
 import {
   queryDatabase,
@@ -7,13 +8,13 @@ import {
   parseBlogPostProp,
 } from "../../lib/notionApi";
 import { parseNotionTextColor, parseDateTime } from "../../lib/notionHelpers";
-import { databaseId } from "./index";
 import { revalidateDurationInSec } from "../../lib/contants";
 import { RichText } from "../../components/RichText";
 import { InferGetStaticPropsType } from "next";
 import { Container } from "@mui/material";
 import { NotionRenderer, Code } from "react-notion-x";
 import { ArrowBack } from "@mui/icons-material";
+import ThumbnailImg from "../../components/ThumbnailImg";
 
 export default function BlogPost({
   post,
@@ -24,23 +25,15 @@ export default function BlogPost({
   }
 
   return (
-    <Container maxWidth="md">
-      <Button startIcon={<ArrowBack />}>
-        <Link href="/blog">
-          <span className="normal-case">Back to all posts</span>
-        </Link>
-      </Button>
-      {post.thumbnailUrl && (
-        <div
-          className="w-full aspect-w-2 aspect-h-1 rounded-lg"
-          style={{
-            backgroundImage: `url(${post.thumbnailUrl})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        />
-      )}
+    <Container maxWidth="md" className="flex flex-col">
+      <div className="flex">
+        <Button startIcon={<ArrowBack />}>
+          <Link href="/blog">
+            <span className="normal-case">Back to all posts</span>
+          </Link>
+        </Button>
+      </div>
+      <ThumbnailImg url={post.thumbnailUrl} shorterHeight />
       <div className="my-4 flex flex-col items-center">
         <Stack direction="row" spacing={1}>
           {post.tags.map((tag) => (
@@ -102,7 +95,7 @@ export const getStaticPaths = async () => {
       ? []
       : (
           await queryDatabase({
-            database_id: databaseId!,
+            database_id: process.env.BLOG_DATABASE_ID!,
           })
         ).results.map((page) => ({
           params: { postId: page.id },

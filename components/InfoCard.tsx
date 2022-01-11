@@ -3,6 +3,7 @@ import { Paper, Chip, Grid, Stack, Typography } from "@mui/material";
 import { RichText } from "../components/RichText";
 import { NotionTag } from "../lib/types";
 import { parseNotionTextColor, parseDateTime } from "../lib/notionHelpers";
+import ThumbnailImg from "./ThumbnailImg";
 
 interface InfoCardProps {
   title: any;
@@ -21,22 +22,8 @@ export default function InfoCard(props: InfoCardProps) {
         <Paper className="p-2" elevation={2}>
           <Grid container>
             <Grid item xs={12} sm={3}>
-              <div className="static pr-4">
-                <div
-                  className="w-full aspect-w-2 aspect-h-1 rounded-lg"
-                  style={{
-                    ...(thumbnailUrl
-                      ? {
-                          backgroundImage: `url(${thumbnailUrl})`,
-                          backgroundSize: "contain",
-                          backgroundRepeat: "no-repeat",
-                          backgroundPosition: "center",
-                        }
-                      : {
-                          backgroundColor: "grey",
-                        }),
-                  }}
-                />
+              <div className="pr-4">
+                <ThumbnailImg url={thumbnailUrl} fallbackWithGreyBg />
               </div>
             </Grid>
             <Grid item xs={12} sm={9}>

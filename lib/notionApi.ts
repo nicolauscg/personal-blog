@@ -1,6 +1,7 @@
 import { Client } from "@notionhq/client";
 import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoints";
 import { NotionAPI } from "notion-client";
+import { execFuncWithCacheOnDevOnly } from "./cacheForDev";
 import { NotionBlogPost, NotionRichText, NotionTag } from "./types";
 
 const officialNotionClient = new Client({
@@ -10,17 +11,23 @@ const officialNotionClient = new Client({
 const unofficialNotionClient = new NotionAPI();
 
 export const queryDatabase = async (args: QueryDatabaseParameters) => {
-  return officialNotionClient.databases.query(args);
+  return execFuncWithCacheOnDevOnly(`queryDatabase_${args.database_id}`, () =>
+    officialNotionClient.databases.query(args)
+  );
 };
 
 export const getPageProp = async (pageId: string) => {
-  return officialNotionClient.pages.retrieve({
-    page_id: pageId,
-  });
+  return execFuncWithCacheOnDevOnly(`getPageProp_${pageId}`, () =>
+    officialNotionClient.pages.retrieve({
+      page_id: pageId,
+    })
+  );
 };
 
 export const getPageContent = async (pageId: string) => {
-  return unofficialNotionClient.getPage(pageId);
+  return execFuncWithCacheOnDevOnly(`getPageContent_${pageId}`, () =>
+    unofficialNotionClient.getPage(pageId)
+  );
 };
 
 export const parseBlogPostProp = (pageProp: any): NotionBlogPost => {

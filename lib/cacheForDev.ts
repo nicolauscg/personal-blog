@@ -34,9 +34,9 @@ export async function flushCache() {
   }
 
   const keyCntBef = await NodePersistCache.length();
-  NodePersistCache.clear();
+  await NodePersistCache.clear();
   const keyCntAft = await NodePersistCache.length();
-  const keyCnt = keyCntAft - keyCntBef;
+  const keyCnt = keyCntBef - keyCntAft;
   console.info(`${keyCnt} keys in cache flushed `);
   return keyCnt;
 }

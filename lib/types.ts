@@ -1,6 +1,8 @@
 import { NextPage } from "next";
 import { ReactElement, ReactNode } from "react";
 
+// copied from part of GetPageResponse in
+// node_modules/@notionhq/client/build/src/api-endpoints.d.ts
 export interface NotionRichText {
   type: "text";
   text: {

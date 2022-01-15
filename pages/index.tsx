@@ -80,6 +80,7 @@ Home.getLayout = function getLayout(page: ReactElement) {
               sm: "block",
             },
           }}
+          key="work"
         >
           <PulsatingCircle />
           Currently working at{" "}

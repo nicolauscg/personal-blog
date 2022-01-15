@@ -38,6 +38,7 @@ export default function BlogPost({
         <Stack direction="row" spacing={1}>
           {post.tags.map((tag) => (
             <Chip
+              key={tag.id}
               className="border-2"
               label={tag.name}
               variant="outlined"

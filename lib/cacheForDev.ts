@@ -1,38 +1,42 @@
 // cache to be used only in development
-import NodeCache from "node-cache";
+import NodePersistCache from "node-persist";
 
-const devCache = new NodeCache();
-const TTL = 3600; // 1 hour
+await NodePersistCache.init({
+  dir: "fsDevCache", // relative to root of project
+  ttl: 3600 * 1000, // 1 hour
+});
 
-export function execFuncWithCacheOnDevOnly<Type>(
+export async function execFuncWithCacheOnDevOnly<Type>(
   key: string,
-  func: () => Type
-): Type {
+  func: () => Promise<Type>
+): Promise<Type> {
   if (process.env.NODE_ENV !== "development") {
     return func();
   }
 
-  if (devCache.has(key)) {
+  const cacheRes = await NodePersistCache.getItem(key);
+
+  if (cacheRes) {
     console.info(`cache hit for key ${key}`);
-    return devCache.get(key)!;
+    return cacheRes;
   }
 
-  const res = func();
-  if (!devCache.set(key, res, TTL)) {
-    console.warn(`cache set for key ${key} failed`);
-  }
+  const funcRes = await func();
+  NodePersistCache.set(key, funcRes);
 
   console.info(`cache missed for key ${key}`);
-  return res;
+  return funcRes;
 }
 
-export const flushCache = () => {
+export async function flushCache() {
   if (process.env.NODE_ENV !== "development") {
     return 0;
   }
 
-  const { keys: keyCnt } = devCache.getStats();
-  devCache.flushAll();
+  const keyCntBef = await NodePersistCache.length();
+  NodePersistCache.clear();
+  const keyCntAft = await NodePersistCache.length();
+  const keyCnt = keyCntAft - keyCntBef;
   console.info(`${keyCnt} keys in cache flushed `);
   return keyCnt;
-};
+}

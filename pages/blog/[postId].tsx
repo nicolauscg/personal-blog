@@ -131,8 +131,8 @@ export default function BlogPost({
             const {
               width = 0,
               height = 0,
-              isFullWidth = true,
-            } = imageFileIdToDimension?.[fileId || ""];
+              isFullWidth = false,
+            } = imageFileIdToDimension?.[fileId || ""] || {};
 
             return (
               <Image

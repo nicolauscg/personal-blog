@@ -23,7 +23,12 @@ export default function InfoCard(props: InfoCardProps) {
           <Grid container>
             <Grid item xs={12} sm={3}>
               <div className="pr-4">
-                <ThumbnailImg url={thumbnailUrl} fallbackWithGreyBg />
+                <ThumbnailImg
+                  url={thumbnailUrl}
+                  widthRatio={2}
+                  heightRatio={1}
+                  fallbackWithGreyBg
+                />
               </div>
             </Grid>
             <Grid item xs={12} sm={9}>

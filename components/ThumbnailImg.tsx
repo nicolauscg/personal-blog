@@ -4,16 +4,14 @@ import { useMemo } from "react";
 interface ThumbnailImgProps {
   url?: string | null;
   fallbackWithGreyBg?: boolean;
-  widthRatio?: number;
-  heightRatio?: number;
+  tailwindAspectRatio?: string;
 }
 
 export default function ThumbnailImg(props: ThumbnailImgProps) {
   const {
     url = null,
     fallbackWithGreyBg = false,
-    widthRatio = 0,
-    heightRatio = 0,
+    tailwindAspectRatio = "",
   } = props;
 
   const outerDivClassName: string = useMemo(() => {
@@ -21,11 +19,16 @@ export default function ThumbnailImg(props: ThumbnailImgProps) {
     if (url || fallbackWithGreyBg) {
       classNames.push("relative", "w-full", "rounded-lg", "self-center");
 
-      if (widthRatio || heightRatio) {
-        classNames.push(
-          `aspect-w-${widthRatio || 1}`,
-          `aspect-h-${heightRatio || 1}`
-        );
+      // do not generate class name dynamically, else tailwind will not detect
+      // its usage and not generate the styling
+      switch (tailwindAspectRatio) {
+        case "rectangle":
+          classNames.push("aspect-rectangle");
+          break;
+        case "shorter":
+          classNames.push("aspect-shorter");
+          break;
+        default:
       }
     }
 
@@ -34,7 +37,7 @@ export default function ThumbnailImg(props: ThumbnailImgProps) {
     }
 
     return classNames.join(" ");
-  }, [url, fallbackWithGreyBg, widthRatio, heightRatio]);
+  }, [url, fallbackWithGreyBg, tailwindAspectRatio]);
 
   return (
     <div className={outerDivClassName}>
@@ -43,7 +46,7 @@ export default function ThumbnailImg(props: ThumbnailImgProps) {
           src={url}
           alt="blog post thumbnail"
           layout="fill"
-          objectFit="contain"
+          objectFit="cover"
           objectPosition="center center"
         />
       )}

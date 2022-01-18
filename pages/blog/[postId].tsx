@@ -72,7 +72,7 @@ export default function BlogPost({
           </Link>
         </Button>
       </div>
-      <ThumbnailImg url={post.thumbnailUrl} widthRatio={3} heightRatio={1} />
+      <ThumbnailImg url={post.thumbnailUrl} tailwindAspectRatio="shorter" />
       <div className="my-4 flex flex-col items-center">
         <Stack direction="row" spacing={1}>
           {post.tags.map((tag) => (

@@ -25,8 +25,7 @@ export default function InfoCard(props: InfoCardProps) {
               <div className="pr-4">
                 <ThumbnailImg
                   url={thumbnailUrl}
-                  widthRatio={2}
-                  heightRatio={1}
+                  tailwindAspectRatio="rectangle"
                   fallbackWithGreyBg
                 />
               </div>

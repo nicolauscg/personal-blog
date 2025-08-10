@@ -20,7 +20,7 @@ export default function Home() {
           root: "flex flex-col justify-center flex-1",
         }}
       >
-        <div>
+        <div className="my-6">
           <div className="text-4xl mb-4">
             <Emoji label="hand wave" symbol="👋" />
           </div>

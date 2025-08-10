@@ -2102,6 +2102,9 @@ svg.notion-page-icon {
 }
 
 .notion-header {
+  /* do not display Notion page's breadcrumbs */
+  display: none;
+
   position: sticky;
   top: 0;
   left: 0;

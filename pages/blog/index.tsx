@@ -15,7 +15,7 @@ export default function BlogIndex({
         <meta name="description" content="All blog posts" />
       </Head>
       <Container maxWidth="md">
-        <Typography variant="h4" component="h1" gutterBottom>
+        <Typography variant="h4" component="h1" gutterBottom marginTop={6}>
           All posts
         </Typography>
         <Stack spacing={2}>

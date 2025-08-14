@@ -29,9 +29,7 @@ export default function Layout({ children, navs = [] }: LayoutProps) {
           <Container maxWidth="xl" disableGutters>
             <Toolbar>
               <Link href="/">
-                <a>
-                  <NameIcon width="10rem" />
-                </a>
+                <NameIcon width="10rem" />
               </Link>
               <div className="flex-1" />
               {navs}
@@ -52,26 +50,20 @@ export default function Layout({ children, navs = [] }: LayoutProps) {
               more elsewhere
             </Typography>
             <span className="ml-2">
-              <Link href="mailto:nicolauscg@gmail.com">
-                <a target="_blank">
-                  <IconButton>
-                    <EmailIcon />
-                  </IconButton>
-                </a>
+              <Link href="mailto:nicolauscg@gmail.com" target="_blank">
+                <IconButton>
+                  <EmailIcon />
+                </IconButton>
               </Link>
-              <Link href="https://www.linkedin.com/in/nicolauscg/">
-                <a target="_blank">
-                  <IconButton>
-                    <LinkedInIcon />
-                  </IconButton>
-                </a>
+              <Link href="https://www.linkedin.com/in/nicolauscg/" target="_blank">
+                <IconButton>
+                  <LinkedInIcon />
+                </IconButton>
               </Link>
-              <Link href="https://github.com/nicolauscg">
-                <a target="_blank">
-                  <IconButton>
-                    <GitHubIcon />
-                  </IconButton>
-                </a>
+              <Link href="https://github.com/nicolauscg" target="_blank">
+                <IconButton>
+                  <GitHubIcon />
+                </IconButton>
               </Link>
             </span>
           </div>

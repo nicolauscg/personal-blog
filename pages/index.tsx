@@ -36,8 +36,8 @@ export default function Home() {
           <Typography variant="h6" component="h2" className="font-thin">
             I write about the development of my projects in my{" "}
             <Link href="/blog">
-              <Typography variant="h5" component="a">
-                <MuiLink>
+              <Typography variant="h5" component="span">
+                <MuiLink component="span">
                   <span className="font-bold cursor-pointer">/blog</span>
                 </MuiLink>
               </Typography>
@@ -71,6 +71,7 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
+    // <div>{page}</div>
     <Layout
       navs={[
         <Typography
@@ -84,10 +85,8 @@ Home.getLayout = function getLayout(page: ReactElement) {
         >
           <PulsatingCircle />
           Currently working at{" "}
-          <Link href="https://www.csgi.com/">
-            <a target="_blank">
-              <span className="text-red-500 font-bold">CSG</span>
-            </a>
+          <Link href="https://www.csgi.com/" target="_blank">
+            <span className="text-red-500 font-bold">CSG</span>
           </Link>
         </Typography>,
       ]}

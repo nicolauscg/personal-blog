@@ -18,41 +18,39 @@ export default function InfoCard(props: InfoCardProps) {
 
   return (
     <Link href={link}>
-      <a>
-        <Paper className="p-2" elevation={2}>
-          <Grid container>
-            <Grid item xs={12} sm={3}>
-              <div className="pr-4">
-                <ThumbnailImg
-                  url={thumbnailUrl}
-                  tailwindAspectRatio="rectangle"
-                  fallbackWithGreyBg
-                />
-              </div>
-            </Grid>
-            <Grid item xs={12} sm={9}>
-              <Stack direction="row" spacing={1}>
-                {tags.map((tag) => (
-                  <Chip
-                    key={tag.id}
-                    className="border-2"
-                    label={tag.name}
-                    variant="outlined"
-                    size="small"
-                    color={parseNotionTextColor(tag.color)}
-                  />
-                ))}
-              </Stack>
-              <Typography variant="h5" component="h2">
-                <RichText text={title} />
-              </Typography>
-              <Typography variant="subtitle1" component="h3">
-                {parseDateTime(dateTime)}
-              </Typography>
-            </Grid>
+      <Paper className="p-2" elevation={2}>
+        <Grid container>
+          <Grid item xs={12} sm={3}>
+            <div className="pr-4">
+              <ThumbnailImg
+                url={thumbnailUrl}
+                tailwindAspectRatio="rectangle"
+                fallbackWithGreyBg
+              />
+            </div>
           </Grid>
-        </Paper>
-      </a>
+          <Grid item xs={12} sm={9}>
+            <Stack direction="row" spacing={1}>
+              {tags.map((tag) => (
+                <Chip
+                  key={tag.id}
+                  className="border-2"
+                  label={tag.name}
+                  variant="outlined"
+                  size="small"
+                  color={parseNotionTextColor(tag.color)}
+                />
+              ))}
+            </Stack>
+            <Typography variant="h5" component="h2">
+              <RichText text={title} />
+            </Typography>
+            <Typography variant="subtitle1" component="h3">
+              {parseDateTime(dateTime)}
+            </Typography>
+          </Grid>
+        </Grid>
+      </Paper>
     </Link>
   );
 }

@@ -19,14 +19,14 @@
     "node-persist": "^3.1.0",
     "notion-client": "^6.16.0",
     "prismjs": "^1.25.0",
-    "react": "18.2.0",
-    "react-dom": "18.2.0",
+    "react": "19.1.1",
+    "react-dom": "19.1.1",
     "react-notion-x": "^6.16.0"
   },
   "devDependencies": {
     "@types/node": "^16.11.2",
     "@types/node-persist": "^3.1.2",
-    "@types/react": "18.2.79",
+    "@types/react": "19.1.10",
     "autoprefixer": "^10.3.7",
     "eslint": "^8.7.0",
     "eslint-config-next": "13.5.11",

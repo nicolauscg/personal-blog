@@ -1,8 +1,9 @@
 import "tailwindcss/tailwind.css";
-// use copied css styling from react-notion-x for customization
-import "../styles/react-notion-x-styles.css";
-// used for code syntax highlighting (optional)
-import "prismjs/themes/prism.css";
+// Styles for Notion page renderer
+import 'react-notion-x/src/styles.css'
+import "../styles/react-notion-x-styles-override.css";
+// Code syntax highlighting
+import "prismjs/themes/prism-tomorrow.css";
 
 import Head from "next/head";
 import { ThemeProvider } from "@mui/material/styles";

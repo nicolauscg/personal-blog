@@ -1,0 +1,46 @@
+/**
+ * This file contains project-specific style overrides
+ * for Notion elements from react-notion-x/src/styles.css.
+ */
+
+/* Do not display Notion page breadcrumbs */
+.notion-header {
+  display: none;
+}
+
+/**
+ * Change appearance of Notion page properties to:
+ * - hide property names
+ * - center blog post tags
+ * - center published date
+ */
+.notion-collection-page-properties .notion-collection-column-title {
+  display: none;
+}
+.notion-collection-page-properties .notion-property-multi_select {
+    justify-content: center;
+}
+.notion-collection-page-properties .notion-property-date {
+    display: block;
+    text-align: center;
+}
+
+/* Make table borders more visible */
+.notion-simple-table {
+  border: 1px solid var(--fg-color-1);
+}
+.notion-simple-table td {
+  border: 1px solid var(--fg-color-1);
+}
+
+/**
+ * Reduce size of copy button for code snippets
+ * to not overflow vertically if its only 1 line of code
+ */
+.notion-code-copy {
+  top: 0.5em;
+  right: 0.5em;
+}
+.notion-code-copy-button {
+  font-size: 1em;
+}

@@ -3,15 +3,12 @@ import Link from "next/link";
 import { getPageContent } from "../../lib/notionApi";
 import { revalidateDurationInSec } from "../../lib/contants";
 import { InferGetStaticPropsType } from "next";
-import { NotionRenderer } from "react-notion-x";
 import { ArrowBack } from "@mui/icons-material";
+import { NotionPage } from "../../components/NotionPage";
 
 export default function BlogPost({ recordMap }: InferGetStaticPropsType<typeof getStaticProps>) {
-  // TODO add support for code blocks
-  return <NotionRenderer
+  return <NotionPage
     recordMap={recordMap}
-    fullPage={true}
-    darkMode={false}
     pageHeader={
       <Button startIcon={<ArrowBack />}>
         <Link href="/blog">

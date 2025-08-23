@@ -44,3 +44,10 @@
 .notion-code-copy-button {
   font-size: 1em;
 }
+
+/**
+ * Fixes code snippets inside lists to not overflow horizontally
+ */
+.notion-list {
+  width: 100%;
+}

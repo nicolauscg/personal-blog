@@ -29,12 +29,12 @@ export default function Home() {
             Nicolaus.
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
-            A computer science grad in Australia with a keen interest in{" "}
-            <StyledMark>software engineering</StyledMark> and{" "}
-            <StyledMark>web development</StyledMark>.
+            A software engineer in Australia working primarily with{" "}
+            <StyledMark>Golang</StyledMark> and <StyledMark>Kubernetes</StyledMark>,
+            with an interest in <StyledMark>web development</StyledMark>.
           </Typography>
           <Typography variant="h6" component="h2" className="font-thin">
-            I write about the development of my projects in my{" "}
+            I write about my projects and experiences on my{" "}
             <Link href="/blog">
               <Typography variant="h5" component="span">
                 <MuiLink component="span">

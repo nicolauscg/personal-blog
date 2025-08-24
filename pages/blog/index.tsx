@@ -41,7 +41,7 @@ export const getStaticProps = async () => {
       database_id: process.env.BLOG_DATABASE_ID!,
       ...(process.env.NODE_ENV !== "development" && {
         filter: {
-          property: "Published",
+          property: "Public",
           checkbox: {
             equals: true,
           },

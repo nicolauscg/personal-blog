@@ -25,7 +25,7 @@ export default function Layout({ children, navs = [] }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col flex-1">
-        <AppBar position="static" color="transparent">
+        <AppBar position="static" color="transparent" sx={{ zIndex: 5 }}>
           <Container maxWidth="xl" disableGutters>
             <Toolbar>
               <Link href="/">

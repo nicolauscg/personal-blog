@@ -1,6 +1,6 @@
 import { Button } from "@mui/material";
 import Link from "next/link";
-import { getPageContent } from "../../lib/notionApi";
+import { getPageContent, queryDatabase } from "../../lib/notionApi";
 import { revalidateDurationInSec } from "../../lib/contants";
 import { InferGetStaticPropsType } from "next";
 import { ArrowBack } from "@mui/icons-material";
@@ -19,11 +19,31 @@ export default function BlogPost({ recordMap }: InferGetStaticPropsType<typeof g
   />
 }
 
+// TODO use title as slug for better SEO
 export async function getStaticPaths() {
+  // On production envs, statically generate public blog posts,
+  // on dev envs, skip static generation.
+  const paths =
+    process.env.NODE_ENV === "development"
+      ? []
+      : (
+          await queryDatabase({
+            database_id: process.env.BLOG_DATABASE_ID!,
+            filter: {
+              property: "Public",
+              checkbox: {
+                equals: true,
+              },
+            },
+          })
+        ).results.map((page) => ({
+          params: { postId: page.id },
+        }));
+
   return {
-    paths: [],
-    fallback: true
-  }
+    paths,
+    fallback: true,
+  };
 }
 
 export const getStaticProps = async (context: any) => {

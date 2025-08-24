@@ -36,6 +36,8 @@ export default function BlogIndex({
 }
 
 export const getStaticProps = async () => {
+  // On production envs, only show blog posts with Public property set to true,
+  // on dev envs, show all blog posts.
   const pages = (
     await queryDatabase({
       database_id: process.env.BLOG_DATABASE_ID!,

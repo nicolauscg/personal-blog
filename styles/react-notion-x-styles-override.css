@@ -8,6 +8,20 @@
   display: none;
 }
 
+/* Center page title */
+.notion-title {
+  text-align: center;
+}
+
+/* Change blog index page's gallery view to wrap post title and description */
+.blog-index-page .notion-page-title-text {
+  text-overflow: clip;
+  text-wrap: wrap;
+}
+.blog-index-page .notion-property-text {
+  text-wrap: wrap;
+}
+
 /**
  * Change appearance of Notion page properties to:
  * - hide property names

@@ -84,10 +84,12 @@ const Collection = dynamic(() =>
 
 export function NotionPage({
   recordMap,
-  pageHeader
+  pageHeader,
+  className,
 }: {
   recordMap: ExtendedRecordMap,
-  pageHeader: ReactNode
+  pageHeader?: ReactNode,
+  className?: string,
 }) {
   return <NotionRenderer
     recordMap={recordMap}
@@ -97,6 +99,10 @@ export function NotionPage({
     components={{
       Code,
       Collection,
+    }}
+    className={className}
+    mapPageUrl={(pageId: string) => {
+      return `/blog/${pageId}`
     }}
   />
 }

@@ -1,62 +1,24 @@
-import Head from "next/head";
 import { InferGetStaticPropsType } from "next";
-import { Container, Typography, Stack } from "@mui/material";
 import { revalidateDurationInSec } from "../../lib/contants";
-import { parseBlogPostProp, queryDatabase } from "../../lib/notionApi";
-import InfoCard from "../../components/InfoCard";
+import { getPageContent } from "../../lib/notionApi";
+import { NotionPage } from "../../components/NotionPage";
 
 export default function BlogIndex({
-  posts,
+  recordMap,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  return (
-    <>
-      <Head>
-        <title>all posts | nicolauscg</title>
-        <meta name="description" content="All blog posts" />
-      </Head>
-      <Container maxWidth="md">
-        <Typography variant="h4" component="h1" gutterBottom marginTop={6}>
-          All posts
-        </Typography>
-        <Stack spacing={2}>
-          {posts.map((post) => (
-            <InfoCard
-              key={post.id}
-              title={post.title}
-              link={`/blog/${post.id}`}
-              tags={post.tags}
-              dateTime={post.lastEditedDateTime}
-              thumbnailUrl={post.thumbnailUrl}
-            />
-          ))}
-        </Stack>
-      </Container>
-    </>
-  );
+  return <NotionPage
+    recordMap={recordMap}
+    className={"blog-index-page"}
+  />
 }
 
 export const getStaticProps = async () => {
-  // On production envs, only show blog posts with Public property set to true,
-  // on dev envs, show all blog posts.
-  const pages = (
-    await queryDatabase({
-      database_id: process.env.BLOG_DATABASE_ID!,
-      ...(process.env.NODE_ENV !== "development" && {
-        filter: {
-          property: "Public",
-          checkbox: {
-            equals: true,
-          },
-        },
-      }),
-    })
-  ).results;
-  const posts = pages.map(parseBlogPostProp);
+  const recordMap = await getPageContent(process.env.BLOG_INDEX_PAGE_ID!)
 
   return {
     props: {
-      posts,
+      recordMap,
     },
-    revalidate: revalidateDurationInSec,
-  };
-};
+    revalidate: revalidateDurationInSec
+  }
+}

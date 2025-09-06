@@ -11,7 +11,7 @@ const unofficialNotionClient = new NotionAPI();
 
 export const queryDatabase = async (args: QueryDatabaseParameters) => {
   return officialNotionClient.databases.query(args);
-};
+}
 
 export const getPageProp = async (pageId: string) => {
   return officialNotionClient.pages.retrieve({
@@ -27,16 +27,13 @@ export const parseBlogPostProp = (pageProp: any): NotionBlogPost => {
   return {
     id: pageProp.id as string,
     title: pageProp.properties.Name.title as NotionRichText[],
-    tags: pageProp.properties.Tags["multi_select"] as NotionTag[],
-    lastEditedDateTime: pageProp.properties["Last edited time"][
-      "last_edited_time"
-    ] as string,
-    createdDateTime: pageProp.properties["Created time"][
-      "created_time"
-    ] as string,
-    thumbnailUrl:
-      pageProp.properties.Thumbnail.files?.[0]?.file?.url ||
-      (null as string | null),
-    published: pageProp.properties.Published.checkbox as boolean,
+    titleAsPlainText: (pageProp.properties.Name.title as NotionRichText[])
+      .map((richText) => richText.plain_text)
+      .join(" "),
+    tags: pageProp.properties.Tags.multi_select as NotionTag[],
+    lastEditedDateTime: pageProp.properties.Published.date?.start || (null as string | null),
+    createdDateTime: pageProp.properties.Created.created_time as string,
+    thumbnailUrl: null as string | null,
+    published: pageProp.properties.Public.checkbox as boolean,
   };
 };

@@ -25,20 +25,18 @@ export default function Layout({ children, navs = [] }: LayoutProps) {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <div className="flex flex-col flex-1">
-        <AppBar position="static" color="transparent">
+        <AppBar position="static" color="transparent" sx={{ zIndex: 5 }}>
           <Container maxWidth="xl" disableGutters>
             <Toolbar>
               <Link href="/">
-                <a>
-                  <NameIcon width="10rem" />
-                </a>
+                <NameIcon width="10rem" />
               </Link>
               <div className="flex-1" />
               {navs}
             </Toolbar>
           </Container>
         </AppBar>
-        <main className="flex flex-col flex-1 py-6">{children}</main>
+        <main className="flex flex-col flex-1">{children}</main>
       </div>
       <footer>
         <Container
@@ -52,26 +50,20 @@ export default function Layout({ children, navs = [] }: LayoutProps) {
               more elsewhere
             </Typography>
             <span className="ml-2">
-              <Link href="mailto:nicolauscg@gmail.com">
-                <a target="_blank">
-                  <IconButton>
-                    <EmailIcon />
-                  </IconButton>
-                </a>
+              <Link href="mailto:nicolauscg@gmail.com" target="_blank">
+                <IconButton>
+                  <EmailIcon />
+                </IconButton>
               </Link>
-              <Link href="https://www.linkedin.com/in/nicolauscg/">
-                <a target="_blank">
-                  <IconButton>
-                    <LinkedInIcon />
-                  </IconButton>
-                </a>
+              <Link href="https://www.linkedin.com/in/nicolauscg/" target="_blank">
+                <IconButton>
+                  <LinkedInIcon />
+                </IconButton>
               </Link>
-              <Link href="https://github.com/nicolauscg">
-                <a target="_blank">
-                  <IconButton>
-                    <GitHubIcon />
-                  </IconButton>
-                </a>
+              <Link href="https://github.com/nicolauscg" target="_blank">
+                <IconButton>
+                  <GitHubIcon />
+                </IconButton>
               </Link>
             </span>
           </div>

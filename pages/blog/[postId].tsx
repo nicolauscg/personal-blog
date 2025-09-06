@@ -1,108 +1,49 @@
+import { Button } from "@mui/material";
 import Link from "next/link";
-import { Button, Chip, Stack, Typography } from "@mui/material";
-import {
-  queryDatabase,
-  getPageContent,
-  getPageProp,
-  parseBlogPostProp,
-} from "../../lib/notionApi";
-import { parseNotionTextColor, parseDateTime } from "../../lib/notionHelpers";
-import { databaseId } from "./index";
+import { getPageContent, queryDatabase, getPageProp } from "../../lib/notionApi";
 import { revalidateDurationInSec } from "../../lib/contants";
-import { RichText } from "../../components/RichText";
 import { InferGetStaticPropsType } from "next";
-import { Container } from "@mui/material";
-import { NotionRenderer, Code } from "react-notion-x";
 import { ArrowBack } from "@mui/icons-material";
+import { NotionPage } from "../../components/NotionPage";
+import { getPageTitle } from "notion-utils";
+import Head from "next/head";
 
-export default function BlogPost({
-  post,
-  pageRecordMap,
-}: InferGetStaticPropsType<typeof getStaticProps>) {
-  if (!post || !pageRecordMap) {
-    return <></>;
-  }
-
+export default function BlogPost({ recordMap, postTitle }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
-    <Container maxWidth="md">
-      <Button startIcon={<ArrowBack />}>
-        <Link href="/blog">
-          <span className="normal-case">Back to all posts</span>
-        </Link>
-      </Button>
-      {post.thumbnailUrl && (
-        <div
-          className="w-full aspect-w-2 aspect-h-1 rounded-lg"
-          style={{
-            backgroundImage: `url(${post.thumbnailUrl})`,
-            backgroundSize: "contain",
-            backgroundRepeat: "no-repeat",
-            backgroundPosition: "center",
-          }}
-        />
-      )}
-      <div className="my-4 flex flex-col items-center">
-        <Stack direction="row" spacing={1}>
-          {post.tags.map((tag) => (
-            <Chip
-              className="border-2"
-              label={tag.name}
-              variant="outlined"
-              size="small"
-              color={parseNotionTextColor(tag.color)}
-            />
-          ))}
-        </Stack>
-        <Typography variant="h3" component="h1">
-          <RichText text={post.title} />
-        </Typography>
-        <Typography variant="subtitle1">
-          {parseDateTime(post.lastEditedDateTime)}
-        </Typography>
-      </div>
-      <NotionRenderer
-        recordMap={pageRecordMap}
-        darkMode={false}
-        components={{
-          pageLink: ({
-            href,
-            as,
-            passHref,
-            prefetch,
-            replace,
-            scroll,
-            shallow,
-            locale,
-            ...props
-          }: any) => (
-            <Link
-              href={href}
-              as={as}
-              passHref={passHref}
-              prefetch={prefetch}
-              replace={replace}
-              scroll={scroll}
-              shallow={shallow}
-              locale={locale}
-            >
-              <a {...props} />
+    <>
+      <Head>
+        <title>nicolauscg | {postTitle}</title>
+      </Head>
+      <NotionPage
+        recordMap={recordMap}
+        pageHeader={
+          <Button startIcon={<ArrowBack />}>
+            <Link href="/blog">
+              <span className="normal-case">Back to all posts</span>
             </Link>
-          ),
-          code: Code,
-        }}
+          </Button>
+        }
       />
-    </Container>
-  );
+    </>
+  )
 }
 
 // TODO use title as slug for better SEO
-export const getStaticPaths = async () => {
+export async function getStaticPaths() {
+  // On production envs, statically generate public blog posts,
+  // on dev envs, skip static generation.
   const paths =
     process.env.NODE_ENV === "development"
       ? []
       : (
           await queryDatabase({
-            database_id: databaseId!,
+            database_id: process.env.BLOG_DATABASE_ID!,
+            filter: {
+              property: "Public",
+              checkbox: {
+                equals: true,
+              },
+            },
           })
         ).results.map((page) => ({
           params: { postId: page.id },
@@ -112,21 +53,32 @@ export const getStaticPaths = async () => {
     paths,
     fallback: true,
   };
-};
+}
 
 export const getStaticProps = async (context: any) => {
   const postId = context.params?.postId as string;
 
-  const pageProp = await getPageProp(postId);
-  const post = parseBlogPostProp(pageProp);
+  // Check if the official Notion API token can access this page id,
+  // this is done to only render pages created by the token's author.
+  try {
+    await getPageProp(postId)
+  } catch (e) {
+    console.error("Failed to get page prop for postId " + postId + ", error: " + e)
+    return {
+      notFound: true,
+      revalidate: revalidateDurationInSec
+    }
+  }
 
-  const pageRecordMap = await getPageContent(postId);
+  // Get page content and title using unofficial Notion API client
+  const recordMap = await getPageContent(postId)
+  const postTitle = getPageTitle(recordMap) || "blog post";
 
   return {
     props: {
-      post,
-      pageRecordMap,
+      recordMap,
+      postTitle
     },
-    revalidate: revalidateDurationInSec,
-  };
-};
+    revalidate: revalidateDurationInSec
+  }
+}

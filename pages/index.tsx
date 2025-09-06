@@ -20,7 +20,7 @@ export default function Home() {
           root: "flex flex-col justify-center flex-1",
         }}
       >
-        <div>
+        <div className="my-6">
           <div className="text-4xl mb-4">
             <Emoji label="hand wave" symbol="👋" />
           </div>
@@ -29,15 +29,15 @@ export default function Home() {
             Nicolaus.
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
-            A computer science grad in Australia with a keen interest in{" "}
-            <StyledMark>software engineering</StyledMark> and{" "}
-            <StyledMark>web development</StyledMark>.
+            A software engineer in Australia working primarily in{" "}
+            <StyledMark>Golang</StyledMark> and <StyledMark>Kubernetes</StyledMark>.
+            I also have a keen interest in <StyledMark>web development</StyledMark>.
           </Typography>
           <Typography variant="h6" component="h2" className="font-thin">
-            I write about the development of my projects in my{" "}
+            I write about my projects and experiences on my{" "}
             <Link href="/blog">
-              <Typography variant="h5" component="a">
-                <MuiLink>
+              <Typography variant="h5" component="span">
+                <MuiLink component="span">
                   <span className="font-bold cursor-pointer">/blog</span>
                 </MuiLink>
               </Typography>
@@ -71,6 +71,7 @@ export default function Home() {
 
 Home.getLayout = function getLayout(page: ReactElement) {
   return (
+    // <div>{page}</div>
     <Layout
       navs={[
         <Typography
@@ -80,13 +81,12 @@ Home.getLayout = function getLayout(page: ReactElement) {
               sm: "block",
             },
           }}
+          key="work"
         >
           <PulsatingCircle />
           Currently working at{" "}
-          <Link href="https://www.csgi.com/">
-            <a target="_blank">
-              <span className="text-red-500 font-bold">CSG</span>
-            </a>
+          <Link href="https://www.csgi.com/" target="_blank">
+            <span className="text-red-500 font-bold">CSG</span>
           </Link>
         </Typography>,
       ]}

@@ -29,7 +29,7 @@ export default function Home() {
             Nicolaus.
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
-            A software engineer in Australia working primarily with <StyledMark>Python</StyledMark>.
+            A software engineer in Australia working primarily with <StyledMark>Python</StyledMark>,
             with professional experience in <StyledMark>Golang</StyledMark> and <StyledMark>Kubernetes</StyledMark>,
             and a passion for <StyledMark>web development</StyledMark>.
           </Typography>

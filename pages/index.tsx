@@ -29,9 +29,9 @@ export default function Home() {
             Nicolaus.
           </Typography>
           <Typography variant="h4" component="h1" className="font-thin mb-4">
-            A software engineer in Australia working primarily in{" "}
-            <StyledMark>Golang</StyledMark> and <StyledMark>Kubernetes</StyledMark>.
-            I also have a keen interest in <StyledMark>web development</StyledMark>.
+            A software engineer in Australia working primarily with <StyledMark>Python</StyledMark>.
+            with professional experience in <StyledMark>Golang</StyledMark> and <StyledMark>Kubernetes</StyledMark>,
+            and a passion for <StyledMark>web development</StyledMark>.
           </Typography>
           <Typography variant="h6" component="h2" className="font-thin">
             I write about my projects and experiences on my{" "}
@@ -85,8 +85,8 @@ Home.getLayout = function getLayout(page: ReactElement) {
         >
           <PulsatingCircle />
           Currently working at{" "}
-          <Link href="https://www.csgi.com/" target="_blank">
-            <span className="text-red-500 font-bold">CSG</span>
+          <Link href="https://www.deswik.com/" target="_blank">
+            <span className="text-blue-500 font-bold">Deswik</span>
           </Link>
         </Typography>,
       ]}

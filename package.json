@@ -17,12 +17,12 @@
     "@notionhq/client": "^0.4.4",
     "next": "15.4.10",
     "node-persist": "^3.1.0",
-    "notion-client": "^7.4.3",
-    "notion-types": "^7.4.3",
+    "notion-client": "8.0.8",
+    "notion-types": "8.0.8",
     "prismjs": "^1.30.0",
     "react": "19.1.1",
     "react-dom": "19.1.1",
-    "react-notion-x": "^7.4.3"
+    "react-notion-x": "8.0.8"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
